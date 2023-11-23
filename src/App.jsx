@@ -6,6 +6,8 @@ function App() {
     sadasd
     <Button color="gray">Gray</Button>
     <Button color="blue">Blue</Button>
+    <Button color="blue">Blue</Button>
+    <Button color="blue">Blue</Button>
     </>
   )
 }
