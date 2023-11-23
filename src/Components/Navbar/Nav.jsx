@@ -7,7 +7,7 @@ const Nav = () => {
     <Navbar fluid rounded>
       <Navbar.Brand href="/">
         <img src="https://i.ibb.co/hdf5r6s/logo.png" className="mr-3 h-6 sm:h-9" alt="Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        <span className="self-center whitespace-nowrap text-xl hidden md:block font-semibold dark:text-white">
           Forever Union
         </span>
       </Navbar.Brand>
@@ -33,25 +33,25 @@ const Nav = () => {
             <Dropdown.Item>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Button gradientMonochrome="lime" className="text-black font-bold">Log In</Button>
+          <Button gradientMonochrome="lime" className="text-black font-bold mr-3">Log In</Button>
         )}
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <NavLink className="text-lg" to={"/"}>
+        <NavLink className="text-lg font-semibold" to={"/"}>
           Home
         </NavLink>
-        <NavLink className="text-lg" to={"/bioDatas"}>
+        <NavLink className="text-lg font-semibold" to={"/bioDatas"}>
           BioDatas
         </NavLink>
-        <NavLink className="text-lg" to={"/aboutUs"}>
+        <NavLink className="text-lg font-semibold" to={"/aboutUs"}>
           About Us
         </NavLink>
-        <NavLink className="text-lg" to={"/contactUs"}>
+        <NavLink className="text-lg font-semibold" to={"/contactUs"}>
           Contact Us
         </NavLink>
         {user && (
-          <NavLink className="text-lg" to={"/dashboard"}>
+          <NavLink className="text-lg font-semibold" to={"/dashboard"}>
             DashBoard
           </NavLink>
         )}
