@@ -1,8 +1,9 @@
 import { Button } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 const BioDataCard = () => {
   return (
-    <div className=" shadow-xl hover:shadow-lime-200 duration-300 p-2 space-y-2 border rounded-xl">
+    <div className=" shadow-xl hover:shadow-lime-200 duration-300 p-2 space-y-2 border rounded-xl ">
       <div className="flex justify-center items-center lg:gap-10 gap-5 space-y-2 rounded-xl flex-col lg:flex-row">
         <img
           src="https://i.ibb.co/jDMGShY/rainy-1.png"
@@ -22,7 +23,7 @@ const BioDataCard = () => {
           </h3>
 
           <h3 className="font-semibold text-lg">
-            Age: <span className="font-medium"> 26</span>
+            Age: <span className="font-medium"> 26 Y/O</span>
           </h3>
 
           <h3 className="font-semibold text-lg">
@@ -34,12 +35,16 @@ const BioDataCard = () => {
           </h3>
         </div>
       </div>
-      <Button
-        gradientMonochrome="lime"
-        className="hover:animate-pulse font-bold w-full "
-      >
-        View Profile
-      </Button>
+      <div>
+        <Link to={"/bioDetails"}>
+          <Button
+            gradientMonochrome="lime"
+            className="hover:animate-pulse font-bold w-full "
+          >
+            View Profile
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };

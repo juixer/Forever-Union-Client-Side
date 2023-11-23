@@ -4,6 +4,7 @@ import Home from "../Pages/Home/Home";
 import Biodatas from "../Pages/Biodata/Biodatas";
 import LogIn from "../Pages/LogIn/LogIn";
 import Register from "../Pages/Register/Register";
+import SingleBioData from "../Pages/SingleBioData/SingleBioData";
 
 const Router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const Router = createBrowserRouter([
       {
         path:'/register',
         element: <Register/>
+      },
+      {
+        path:'/bioDetails',
+        element: <SingleBioData/>
       }
     ],
   },
