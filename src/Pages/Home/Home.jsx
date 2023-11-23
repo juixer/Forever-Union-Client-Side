@@ -1,3 +1,4 @@
+import Container from "../../Shared/Container/Container";
 import Banner from "./HomeCompo/Banner/Banner";
 import HowWorks from "./HomeCompo/HowWorks/HowWorks";
 import PremiumMember from "./HomeCompo/PremiumMember/PremiumMember";
@@ -6,13 +7,15 @@ import SuccessStory from "./HomeCompo/SuccessStory/SuccessStory";
 
 const Home = () => {
   return (
-    <div>
-      <Banner />
-      <PremiumMember />
-      <HowWorks/>
-      <StatsCounter />
-      <SuccessStory/>
-    </div>
+    <Container>
+      <div>
+        <Banner />
+        <PremiumMember />
+        <HowWorks />
+        <StatsCounter />
+        <SuccessStory />
+      </div>
+    </Container>
   );
 };
 

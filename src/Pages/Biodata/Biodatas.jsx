@@ -19,10 +19,10 @@ const Biodatas = () => {
   ];
   return (
     <Container>
-      <div className="my-10">
+      <div className="my-5">
         <Headline text={"BioDatas"} />
         <div className="flex flex-col lg:flex-row gap-10 mt-10">
-          <div className="lg:w-1/4 px-3">
+          <div className="lg:w-1/4  px-3">
             <form>
               <div>
                 <h1 className="text-xl text-center font-bold">Filter By Age</h1>
@@ -32,7 +32,7 @@ const Biodatas = () => {
                     name="startAge"
                     min={21}
                     max={100}
-                    value={21}
+                    defaultValue={21}
                     className="w-20 rounded-lg"
                   />
                   <span className="font-bold">To</span>
@@ -41,7 +41,7 @@ const Biodatas = () => {
                     name="endAge"
                     min={21}
                     max={100}
-                    value={100}
+                    defaultValue={100}
                     className="w-20 rounded-lg"
                   />
                 </div>

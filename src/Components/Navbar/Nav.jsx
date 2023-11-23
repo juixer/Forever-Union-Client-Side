@@ -1,12 +1,19 @@
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth/useAuth";
 
 const Nav = () => {
   const user = true;
+
+  const {name} = useAuth()
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="/">
-        <img src="https://i.ibb.co/hdf5r6s/logo.png" className="mr-3 h-6 sm:h-9" alt="Logo" />
+        <img
+          src="https://i.ibb.co/hdf5r6s/logo.png"
+          className="mr-3 h-6 sm:h-9"
+          alt="Logo"
+        />
         <span className="self-center whitespace-nowrap text-xl hidden lg:block font-semibold dark:text-white">
           Forever Union
         </span>
@@ -19,13 +26,13 @@ const Nav = () => {
             label={
               <Avatar
                 alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                img="https://i.ibb.co/jDMGShY/rainy-1.png"
                 rounded
               />
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
+              <span className="block text-sm">{name}</span>
               <span className="block truncate text-sm font-medium">
                 name@flowbite.com
               </span>
@@ -33,7 +40,14 @@ const Nav = () => {
             <Dropdown.Item>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Button gradientMonochrome="lime" className="text-black font-bold mr-3">Log In</Button>
+          <Link to={'/login'}>
+            <Button
+              gradientMonochrome="lime"
+              className="text-black font-bold mr-3"
+            >
+              Log In
+            </Button>
+          </Link>
         )}
         <Navbar.Toggle />
       </div>
