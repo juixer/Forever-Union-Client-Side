@@ -2,7 +2,7 @@ import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import { NavLink } from "react-router-dom";
 
 const Nav = () => {
-  const user = true;
+  const user = false;
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="/">
@@ -33,7 +33,7 @@ const Nav = () => {
             <Dropdown.Item>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Button gradientMonochrome="cyan" className="text-black font-bold">Log In</Button>
+          <Button gradientMonochrome="lime" className="text-black font-bold">Log In</Button>
         )}
         <Navbar.Toggle />
       </div>

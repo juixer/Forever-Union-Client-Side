@@ -15,7 +15,7 @@ const Banner = () => {
             just a click away.
           </p>
           <Link to={'/bioDatas'}>
-            <Button gradientMonochrome="cyan" className="animate-pulse font-bold text-black">
+            <Button gradientMonochrome="lime" className="animate-pulse font-bold text-black">
               Explore Now
             </Button>
           </Link>
