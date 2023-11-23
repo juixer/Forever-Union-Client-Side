@@ -6,7 +6,8 @@ import { FaRegStar, FaStar } from "react-icons/fa6";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import "swiper/css/autoplay";
+import { Pagination, Autoplay } from "swiper/modules";
 import Rating from "react-rating";
 
 const SuccessStory = () => {
@@ -17,7 +18,8 @@ const SuccessStory = () => {
         pagination={{
           dynamicBullets: true,
         }}
-        modules={[Pagination]}
+        modules={[Pagination, Autoplay]}
+        autoplay={{ delay: 3000 }}
         className="mySwiper my-10 text-center"
       >
         <SwiperSlide>
@@ -27,7 +29,7 @@ const SuccessStory = () => {
               className="w-56 full_round"
             />
             <Rating
-            className="text-orange-400"
+              className="text-orange-400"
               placeholderRating={3.5}
               emptySymbol={<FaRegStar />}
               placeholderSymbol={<FaStar />}
@@ -52,7 +54,7 @@ const SuccessStory = () => {
               className="w-56 full_round"
             />
             <Rating
-            className="text-orange-400"
+              className="text-orange-400"
               placeholderRating={3.5}
               emptySymbol={<FaRegStar />}
               placeholderSymbol={<FaStar />}
@@ -77,7 +79,7 @@ const SuccessStory = () => {
               className="w-56 full_round"
             />
             <Rating
-            className="text-orange-400"
+              className="text-orange-400"
               placeholderRating={3.5}
               emptySymbol={<FaRegStar />}
               placeholderSymbol={<FaStar />}
