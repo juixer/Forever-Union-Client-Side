@@ -4,7 +4,7 @@ import Headline from "../../../../Shared/Headline/Headline";
 const HowWorks = () => {
   return (
     <div className="my-16">
-      <Headline text={"How We Works"} />
+      <Headline text={"How It Works"} />
 
       <Accordion collapseAll className="mt-10 max-w-4xl mx-auto">
         {/* panel */}
