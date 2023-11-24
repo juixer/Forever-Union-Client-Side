@@ -135,7 +135,7 @@ const SingleBioData = () => {
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light">
-                Height: {height}
+                Height: {height}"
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light">
@@ -155,7 +155,7 @@ const SingleBioData = () => {
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light">
-                Expected Partner Height: {expectedPartnerHeight}
+                Expected Partner Height: {expectedPartnerHeight}"
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light md:col-span-2">
