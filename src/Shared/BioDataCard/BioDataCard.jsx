@@ -1,7 +1,7 @@
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 
-const BioDataCard = ({ user }) => {
+const BioDataCard = ({ data }) => {
   const {
     _id,
     name,
@@ -11,7 +11,7 @@ const BioDataCard = ({ user }) => {
     biodataId,
     permanentDivision,
     profileImage,
-  } = user;
+  } = data;
   return (
     <div className=" shadow-xl hover:shadow-lime-200 duration-300 p-2 space-y-2 border rounded-xl ">
       <div className="flex justify-center items-center lg:gap-10 gap-5 space-y-2 rounded-xl flex-col md:flex-row">

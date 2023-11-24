@@ -26,12 +26,13 @@ const Router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/bioDetails",
+        path: "/bioDetails/:id",
         element: (
           <PrivateRoute>
             <SingleBioData />
           </PrivateRoute>
         ),
+        loader: ({params}) => fetch(`http://localhost:5000/biodata/${params.id}`)
       },
     ],
   },

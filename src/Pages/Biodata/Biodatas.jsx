@@ -1,9 +1,13 @@
+import { useQuery } from "@tanstack/react-query";
 import BioDataCard from "../../Shared/BioDataCard/BioDataCard";
 import Container from "../../Shared/Container/Container";
 import Headline from "../../Shared/Headline/Headline";
 import Select from "react-select";
+import { HashLoader } from "react-spinners";
+import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 
 const Biodatas = () => {
+  // react select Data
   const type = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
@@ -17,6 +21,32 @@ const Biodatas = () => {
     { value: "Maymansign", label: "Maymansign" },
     { value: "Sylhet", label: "Sylhet" },
   ];
+
+  // tan stack query
+  const {
+    isPending,
+    error,
+    data: biodata = [],
+  } = useQuery({
+    queryKey: ["biodata"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/biodatas");
+      return res.data;
+    },
+  });
+
+  if (isPending) {
+    return (
+      <Container>
+        <div className="flex justify-center items-center py-44">
+          <HashLoader color="#7ad737" />
+        </div>
+      </Container>
+    );
+  }
+  if (error) {
+    console.log(error.message);
+  }
   return (
     <Container>
       <div className="my-5">
@@ -71,10 +101,9 @@ const Biodatas = () => {
           <div className="lg:w-3/4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10 ">
               {/* Cards */}
-              <BioDataCard />
-              <BioDataCard />
-              <BioDataCard />
-              <BioDataCard />
+              {biodata.map((data) => (
+                <BioDataCard key={data._id} data={data} />
+              ))}
             </div>
           </div>
         </div>

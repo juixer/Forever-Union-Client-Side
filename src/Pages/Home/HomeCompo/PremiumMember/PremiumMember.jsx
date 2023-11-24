@@ -6,9 +6,11 @@ import Headline from "../../../../Shared/Headline/Headline";
 const PremiumMember = () => {
   const { isPending, error, premiumUser } = usePremiumUser();
   if (isPending) {
-    <div className="flex justify-center items-center py-44">
-      <HashLoader color="#7ad737" />
-    </div>;
+    return (
+      <div className="flex justify-center items-center py-44">
+        <HashLoader color="#7ad737" />
+      </div>
+    );
   }
   if (error) {
     console.log(error.message);
@@ -18,7 +20,9 @@ const PremiumMember = () => {
       <Headline text={"Our Premium Members"} />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-10 ">
         {/* Cards */}
-        {premiumUser.map(user => <BioDataCard key={user._id} user={user}/>)}
+        {premiumUser.map((data) => (
+          <BioDataCard key={data._id} data={data} />
+        ))}
       </div>
     </div>
   );
