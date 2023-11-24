@@ -3,6 +3,10 @@ import useAuth from "../../../Hooks/useAuth/useAuth";
 import Headline from "../../../Shared/Headline/Headline";
 import Select from "react-select";
 import { useState } from "react";
+import axios from "axios";
+import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const EditBioData = () => {
   const [gender, setGender] = useState(null);
@@ -14,6 +18,9 @@ const EditBioData = () => {
   const [present, setPresent] = useState(null);
   const [exHeight, setExHeight] = useState(null);
   const [exWeight, setExWeight] = useState(null);
+
+//   navigate
+const navigate = useNavigate()
 
   // genderChange
   const genderChange = (selectedOption) => {
@@ -353,19 +360,51 @@ const EditBioData = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    console.log(
-      gender,
-      height,
-      weight,
-      race,
-      occupation,
-      permanent,
-      present,
-      exHeight,
-      exWeight
+  const onSubmit = async (data) => {
+    const imgFile = { image: data.profileImage[0] };
+    const imgRes = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBBKEY}`,
+      imgFile,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
     );
+    if (imgRes.data.success) {
+      const bioDataInfo = {
+        name: data.name,
+        profileImage: imgRes.data.data.url,
+        gender: gender,
+        dateOfBirth: data.dateOfBirth,
+        height: height,
+        weight: weight,
+        age: data.age,
+        occupation: occupation,
+        race: race,
+        fathersName: data.fathersName,
+        mothersName: data.mothersName,
+        expectedPartnerAge: data.expectedPartnerAge,
+        expectedPartnerHeight: exHeight,
+        expectedPartnerWeight: exWeight,
+        contactEmail: data.contactEmail,
+        mobileNumber: data.mobileNumber,
+        permanentDivision: permanent,
+        presentDivision: present,
+      };
+
+     axiosPublic.put('/biodatas', bioDataInfo)
+     .then(res =>{
+        if(res.data.matchedCount > 0){
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "BioData Created Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate('/')
+        }
+     })
+    }
   };
 
   return (
