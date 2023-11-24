@@ -5,6 +5,7 @@ import Biodatas from "../Pages/Biodata/Biodatas";
 import LogIn from "../Pages/LogIn/LogIn";
 import Register from "../Pages/Register/Register";
 import SingleBioData from "../Pages/SingleBioData/SingleBioData";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -17,17 +18,21 @@ const Router = createBrowserRouter([
         element: <Biodatas />,
       },
       {
-        path:'/login',
-        element: <LogIn/>
+        path: "/login",
+        element: <LogIn />,
       },
       {
-        path:'/register',
-        element: <Register/>
+        path: "/register",
+        element: <Register />,
       },
       {
-        path:'/bioDetails',
-        element: <SingleBioData/>
-      }
+        path: "/bioDetails",
+        element: (
+          <PrivateRoute>
+            <SingleBioData />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);

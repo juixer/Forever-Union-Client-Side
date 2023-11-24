@@ -2,6 +2,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
@@ -21,11 +22,13 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
+
   // create user 
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   }
+
   // update user
   const updateUser = (name, image) => {
     setLoading(true);
@@ -33,6 +36,12 @@ const AuthProvider = ({ children }) => {
       displayName: name,
       photoURL: image,
     })
+  }
+
+  // loginUser with email and password
+  const logInUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password)
   }
 
   //   log out user
@@ -46,7 +55,8 @@ const AuthProvider = ({ children }) => {
     user,
     userLogOut,
     createUser,
-    updateUser
+    updateUser,
+    logInUser
   };
 
   useEffect(() => {
