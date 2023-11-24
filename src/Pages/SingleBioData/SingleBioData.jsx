@@ -5,9 +5,13 @@ import { useLoaderData } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import BioDataCard from "../../Shared/BioDataCard/BioDataCard";
+import { HashLoader } from "react-spinners";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import Swal from "sweetalert2";
 
 const SingleBioData = () => {
-  const user = true;
+  const { user } = useAuth();
+  const fakeuser = true;
 
   // single bio data details
   const bioDataInfo = useLoaderData();
@@ -46,6 +50,42 @@ const SingleBioData = () => {
       return res.data;
     },
   });
+
+  if (isPending) {
+    return (
+      <Container>
+        <div className="flex justify-center items-center py-44">
+          <HashLoader color="#7ad737" />
+        </div>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return console.log(error.message);
+  }
+
+  // handle add to favorites
+  const handleAddToFavorite = async () => {
+    const favInfo = {
+      userEmail: user?.email,
+      name,
+      biodataId,
+      permanentDivision,
+      occupation,
+    };
+
+    const res = await axiosPublic.post("/favorite", favInfo);
+    if (res.data.insertedId) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Added to Your Favorites",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
 
   // filter
   const filterMatchedData = matchedData.filter((data) => data._id !== _id);
@@ -125,6 +165,7 @@ const SingleBioData = () => {
             {/* box */}
             <div>
               <Button
+                onClick={handleAddToFavorite}
                 gradientMonochrome="lime"
                 className="hover:animate-pulse font-bold w-full "
               >
@@ -135,7 +176,7 @@ const SingleBioData = () => {
               <h1 className="text-center md:text-5xl text-2xl font-bold my-5">
                 Contact Information
               </h1>
-              {user ? (
+              {fakeuser ? (
                 <div className="flex flex-col justify-center items-center gap-5 mt-5">
                   <h1 className="md:text-3xl text-xl font-light">
                     Email:{" "}
