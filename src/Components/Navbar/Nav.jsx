@@ -1,11 +1,33 @@
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
+import Swal from "sweetalert2";
 
 const Nav = () => {
-  const user = true;
+  const {user, userLogOut} = useAuth()
 
-  const {name} = useAuth()
+  const handleLogOut = () => {
+    userLogOut()
+    .then(() => {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Logged out successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    })
+    .catch((err) => {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: `${err.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    });
+  }
+
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="/">
@@ -26,18 +48,18 @@ const Nav = () => {
             label={
               <Avatar
                 alt="User settings"
-                img="https://i.ibb.co/jDMGShY/rainy-1.png"
+                img={user.photoURL}
                 rounded
               />
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">{name}</span>
+              <span className="block text-sm">{user.displayName} </span>
               <span className="block truncate text-sm font-medium">
-                name@flowbite.com
+                {user.email}
               </span>
             </Dropdown.Header>
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={handleLogOut}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to={'/login'}>

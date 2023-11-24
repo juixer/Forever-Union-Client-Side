@@ -2,9 +2,35 @@ import { Button } from "flowbite-react";
 import Container from "../../Shared/Container/Container";
 import Headline from "../../Shared/Headline/Headline";
 import { FaGoogle } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import Swal from "sweetalert2";
 
 const LogIn = () => {
+  const { googleLogin } = useAuth();
+  const navigate = useNavigate()
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged In successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate('/')
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `${err.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
+  };
   return (
     <Container>
       <div className="my-5 max-w-2xl mx-auto">
@@ -39,7 +65,11 @@ const LogIn = () => {
           </div>
           <div className="max-w-xs mx-auto space-y-5 my-5">
             <h1 className="text-center font-semibold text-4xl">OR</h1>
-            <Button gradientMonochrome="lime" className="font-semibold w-full">
+            <Button
+              onClick={handleGoogleLogin}
+              gradientMonochrome="lime"
+              className="font-semibold w-full"
+            >
               <FaGoogle className="text-2xl" />{" "}
               <span className="ml-3 text-2xl">Log In With Google</span>
             </Button>
