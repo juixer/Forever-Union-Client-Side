@@ -20,15 +20,7 @@ const LogIn = () => {
           role: 'guest',
         };
         axiosPublic.post("/users", userInfo).then((res) => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Logged In successfully",
-            showConfirmButton: false,
-            timer: 1500,
-          });
           console.log(res.data);
-          navigate("/");
         });
         Swal.fire({
           position: "center",
