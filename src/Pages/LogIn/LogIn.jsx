@@ -5,13 +5,31 @@ import { FaGoogle } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
+import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 
 const LogIn = () => {
   const { googleLogin } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleGoogleLogin = () => {
     googleLogin()
-      .then(() => {
+      .then((result) => {
+        const user = result?.user;
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+          role: 'guest',
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Logged In successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.log(res.data);
+          navigate("/");
+        });
         Swal.fire({
           position: "center",
           icon: "success",
@@ -19,7 +37,7 @@ const LogIn = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate('/')
+        navigate("/");
       })
       .catch((err) => {
         Swal.fire({

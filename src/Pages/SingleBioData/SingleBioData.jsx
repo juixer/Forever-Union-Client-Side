@@ -1,9 +1,10 @@
 import { Button } from "flowbite-react";
 import BioDataCard from "../../Shared/BioDataCard/BioDataCard";
 import Container from "../../Shared/Container/Container";
-import { FaHeart } from "react-icons/fa6";
+import { FaHeart, FaLock } from "react-icons/fa6";
 
 const SingleBioData = () => {
+  const user = true;
   return (
     <Container>
       <div className="my-5 flex lg:flex-row flex-col gap-10">
@@ -39,7 +40,7 @@ const SingleBioData = () => {
               </div>
             </div>
             {/* BOX */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 md:text-left text-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 ">
               <h1 className="md:text-3xl text-xl font-light">
                 Father Name: Naruto Uzumaki
               </h1>
@@ -79,25 +80,40 @@ const SingleBioData = () => {
                 gradientMonochrome="lime"
                 className="hover:animate-pulse font-bold w-full "
               >
-               <FaHeart className="mr-2" /> Add To Favorite
+                <FaHeart className="mr-2" /> Add To Favorite
               </Button>
             </div>
             <div>
-              <h1 className="text-center md:text-5xl text-2xl font-bold my-10">
+              <h1 className="text-center md:text-5xl text-2xl font-bold my-5">
                 Contact Information
               </h1>
-              <div className="flex flex-col justify-center items-center gap-5 mt-5">
-                <h1 className="md:text-3xl text-xl font-light">
-                  Email:{" "}
-                  <span className="underline text-2xl">
-                    shantoking3@gmail.com
-                  </span>
-                </h1>
-                <h1 className="md:text-3xl text-xl font-light">
-                  Phone:
-                  <span className="text-2xl"> 0179199005</span>
-                </h1>
-              </div>
+              {user ? (
+                <div className="flex flex-col justify-center items-center gap-5 mt-5">
+                  <h1 className="md:text-3xl text-xl font-light">
+                    Email:{" "}
+                    <span className="underline text-2xl">
+                      shantoking3@gmail.com
+                    </span>
+                  </h1>
+                  <h1 className="md:text-3xl text-xl font-light">
+                    Phone:
+                    <span className="text-2xl"> 0179199005</span>
+                  </h1>
+                </div>
+              ) : (
+                <div className="flex flex-col justify-center items-center gap-3">
+                  <img src="https://i.ibb.co/cY64wtN/contactlocked.png" className="w-44"/>
+                  <h1 className="font-semibold text-xl">BioData Contact Information Locked
+                      Pay 500TK to Get Access of the Contact
+                  </h1>
+                  <Button
+                    gradientMonochrome="lime"
+                    className="animate-pulse font-bold w-full "
+                  >
+                    <FaLock className="mr-2" /> Request Contact Information
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>

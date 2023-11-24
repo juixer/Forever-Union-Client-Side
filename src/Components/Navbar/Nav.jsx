@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 
 const Nav = () => {
   const {user, userLogOut} = useAuth()
-
   const handleLogOut = () => {
     userLogOut()
     .then(() => {
@@ -48,15 +47,15 @@ const Nav = () => {
             label={
               <Avatar
                 alt="User settings"
-                img={user.photoURL}
+                img={user?.photoURL}
                 rounded
               />
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">{user.displayName} </span>
+              <span className="block text-sm">{user?.displayName} </span>
               <span className="block truncate text-sm font-medium">
-                {user.email}
+                {user?.email}
               </span>
             </Dropdown.Header>
             <Dropdown.Item onClick={handleLogOut}>Sign out</Dropdown.Item>
