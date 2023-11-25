@@ -3,11 +3,11 @@ import {
   FaChartSimple,
   FaClipboardCheck,
   FaClipboardList,
-  FaCrown,
   FaHeart,
   FaHouse,
   FaPeopleGroup,
   FaPersonRunning,
+  FaStar,
   FaUserGroup,
 } from "react-icons/fa6";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -73,7 +73,7 @@ const Dashboard = () => {
                   <NavLink to={"/dashboard/approvePremium"}>
                     <Sidebar.Item>
                       <h1 className="flex  items-center justify-start gap-3 text-xl font-semibold">
-                        <FaCrown /> Approve Premium
+                        <FaStar /> Approve Premium
                       </h1>
                     </Sidebar.Item>
                   </NavLink>

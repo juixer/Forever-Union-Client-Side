@@ -82,6 +82,68 @@ const ManageUser = () => {
       }
     });
   };
+
+  //   handle make premium
+  const handleMakePremium = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You want to make premium ${user.name}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/makePremium/${user.email}`).then((res) => {
+          if (
+            res.data.bioDataResult.modifiedCount > 0 ||
+            res.data.userResult.modifiedCount > 0
+          ) {
+            refetch();
+            Swal.fire({
+              title: "Successful!",
+              text: `${user.name} is Premium now`,
+              icon: "success",
+            });
+          }
+          console.log(res.data);
+        });
+      }
+    });
+  };
+
+  //   handle remove Premium
+
+  const handleRemovePremium = (user) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You want to remove Premium ${user.name}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/removePremium/${user.email}`).then((res) => {
+          if (
+            res.data.bioDataResult.modifiedCount > 0 ||
+            res.data.userResult.modifiedCount > 0
+          ) {
+            refetch();
+            Swal.fire({
+              title: "Successful!",
+              text: `${user.name} is Normal user now`,
+              icon: "success",
+            });
+          }
+          console.log(res.data);
+        });
+      }
+    });
+  };
+
   return (
     <div className="my-5 max-w-4xl mx-auto">
       <Headline text={"Manage Users"} />
@@ -92,7 +154,6 @@ const ManageUser = () => {
             <Table.HeadCell>User Email</Table.HeadCell>
             <Table.HeadCell>Make Admin</Table.HeadCell>
             <Table.HeadCell>Make Premium</Table.HeadCell>
-            <Table.HeadCell>Action</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
             {allUsers.map((user) => {
@@ -156,37 +217,20 @@ const ManageUser = () => {
                     ) : (
                       <>
                         {user.status === "premium" ? (
-                          <Button gradientDuoTone="tealToLime">
+                          <Button
+                            gradientDuoTone="tealToLime"
+                            onClick={() => handleRemovePremium(user)}
+                          >
                             <FaStar />
                           </Button>
                         ) : (
-                          <Button gradientDuoTone="purpleToBlue">
+                          <Button
+                            gradientDuoTone="purpleToBlue"
+                            onClick={() => handleMakePremium(user)}
+                          >
                             <FaRegStar />
                           </Button>
                         )}
-                      </>
-                    )}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {user.email === "shantoking3@gmail.com" ||
-                    user.email === "admin@forever.com" ? (
-                      <>
-                        <Button
-                          gradientMonochrome="failure"
-                          className="font-semibold"
-                          disabled
-                        >
-                          Delete
-                        </Button>
-                      </>
-                    ) : (
-                      <>
-                        <Button
-                          gradientMonochrome="failure"
-                          className="font-semibold"
-                        >
-                          Delete
-                        </Button>
                       </>
                     )}
                   </Table.Cell>
