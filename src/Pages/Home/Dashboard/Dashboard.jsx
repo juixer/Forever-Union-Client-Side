@@ -70,7 +70,7 @@ const Dashboard = () => {
                     </Sidebar.Item>
                   </NavLink>
                   <hr />
-                  <NavLink to={"/dashboard/approvePremium"}>
+                  <NavLink to={"/dashboard/approvedPremium"}>
                     <Sidebar.Item>
                       <h1 className="flex  items-center justify-start gap-3 text-xl font-semibold">
                         <FaStar /> Approve Premium

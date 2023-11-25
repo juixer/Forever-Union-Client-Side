@@ -1,19 +1,19 @@
 import { Button } from "flowbite-react";
 import Container from "../../Shared/Container/Container";
 import { FaHeart, FaLock } from "react-icons/fa6";
-import { useLoaderData } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import BioDataCard from "../../Shared/BioDataCard/BioDataCard";
 import { HashLoader } from "react-spinners";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
+import { useLoaderData } from "react-router-dom";
+import usePremium from "../../Hooks/usePremium/usePremium";
 
 const SingleBioData = () => {
   const { user } = useAuth();
-  const fakeuser = false;
+  const { isPremium } = usePremium();
 
-  // single bio data details
   const bioDataInfo = useLoaderData();
   const {
     _id,
@@ -38,7 +38,9 @@ const SingleBioData = () => {
     presentDivision,
   } = bioDataInfo;
 
-  // Tan Stack query
+  // get status
+
+  // Tan Stack query reco data
   const {
     isPending,
     error,
@@ -176,7 +178,7 @@ const SingleBioData = () => {
               <h1 className="text-center md:text-5xl text-2xl font-bold my-5">
                 Contact Information
               </h1>
-              {fakeuser ? (
+              {isPremium?.status === "premium" && (
                 <div className="flex flex-col justify-center items-center gap-5 mt-5">
                   <h1 className="md:text-3xl text-xl font-light">
                     Email:{" "}
@@ -187,7 +189,8 @@ const SingleBioData = () => {
                     <span className="text-2xl"> {mobileNumber}</span>
                   </h1>
                 </div>
-              ) : (
+              )}
+              {isPremium?.status === 'normal' && (
                 <div className="flex flex-col justify-center items-center gap-3">
                   <img
                     src="https://i.ibb.co/cY64wtN/contactlocked.png"

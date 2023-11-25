@@ -8,7 +8,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // auth info
   const { createUser, updateUser } = useAuth();
   // react hook from
@@ -38,7 +38,8 @@ const Register = () => {
               const userInfo = {
                 name,
                 email,
-                role: 'guest',
+                role: "guest",
+                status: "normal",
               };
               axiosPublic.post("/users", userInfo);
               Swal.fire({
@@ -48,7 +49,7 @@ const Register = () => {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              navigate('/')
+              navigate("/");
             })
             .catch((err) => console.log(err.message));
         })
@@ -114,14 +115,14 @@ const Register = () => {
                 <input
                   type="password"
                   {...register("password", {
-                    required: "Please Enter Your Password", 
-                    minLength:{
+                    required: "Please Enter Your Password",
+                    minLength: {
                       value: 6,
-                      message: 'Please Provide at least 6 characters'
+                      message: "Please Provide at least 6 characters",
                     },
-                    maxLength:{
+                    maxLength: {
                       value: 20,
-                      message: 'Please provide at most 20 characters'
+                      message: "Please provide at most 20 characters",
                     },
                     pattern: {
                       value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
@@ -165,7 +166,7 @@ const Register = () => {
             <div>
               <Link to={"/login"}>
                 <h1 className="text-2xl text-center underline cursor-pointer">
-                  Log In An Account
+                  Already Have an Account?
                 </h1>
               </Link>
             </div>

@@ -13,6 +13,7 @@ const useAdmin = () => {
         const res = await axiosSecure.get(`/admin/${user.email}`);
         return res.data.admin;
       }
+      return false;
     },
   });
   return { isAdmin, isAdminPending };

@@ -56,6 +56,7 @@ const LogIn = () => {
           name: user.displayName,
           email: user.email,
           role: "guest",
+          status: 'normal'
         };
         axiosPublic.post("/users", userInfo).then((res) => {
           console.log(res.data);

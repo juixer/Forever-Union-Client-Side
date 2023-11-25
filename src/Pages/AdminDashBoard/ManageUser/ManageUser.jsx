@@ -107,7 +107,6 @@ const ManageUser = () => {
               icon: "success",
             });
           }
-          console.log(res.data);
         });
       }
     });
@@ -138,7 +137,6 @@ const ManageUser = () => {
               icon: "success",
             });
           }
-          console.log(res.data);
         });
       }
     });

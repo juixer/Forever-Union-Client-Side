@@ -13,6 +13,7 @@ import FavBioData from "../Pages/userDashboard/FavBioData/FavBioData";
 import AdminDashBoard from "../Pages/AdminDashBoard/AdminDashBoard";
 import DashHome from "../Pages/Home/Dashboard/DashHome";
 import ManageUser from "../Pages/AdminDashBoard/ManageUser/ManageUser";
+import ApprovePremium from "../Pages/AdminDashBoard/Approve Premium/ApprovePremium";
 
 const Router = createBrowserRouter([
   {
@@ -74,6 +75,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManageUser />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/approvedPremium",
+        element: (
+          <PrivateRoute>
+            <ApprovePremium />
           </PrivateRoute>
         ),
       },
