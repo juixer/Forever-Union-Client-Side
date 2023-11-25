@@ -5,7 +5,9 @@ import {
   FaClipboardList,
   FaHeart,
   FaHouse,
+  FaMessage,
   FaPeopleGroup,
+  FaPeopleRobbery,
   FaPersonRunning,
   FaStar,
   FaUserGroup,
@@ -21,7 +23,7 @@ const Dashboard = () => {
   //   navigate
   const navigate = useNavigate();
   // fake admin
-  const {isAdmin} = useAdmin();
+  const { isAdmin } = useAdmin();
 
   // handle sign out
   const handleSignOut = () => {
@@ -85,6 +87,15 @@ const Dashboard = () => {
                       </h1>
                     </Sidebar.Item>
                   </NavLink>
+                  <hr />
+                  <NavLink to={"/dashboard/successStory"}>
+                    <Sidebar.Item>
+                      <h1 className="flex items-center justify-start gap-3 text-xl font-semibold">
+                        <FaMessage />
+                        Success Story
+                      </h1>
+                    </Sidebar.Item>
+                  </NavLink>
                 </>
               ) : (
                 <>
@@ -118,6 +129,15 @@ const Dashboard = () => {
                       <h1 className="flex items-center justify-start gap-3 text-xl font-semibold">
                         <FaHeart />
                         Favorites BioData
+                      </h1>
+                    </Sidebar.Item>
+                  </NavLink>
+                  <hr />
+                  <NavLink to={"/dashboard/married"}>
+                    <Sidebar.Item>
+                      <h1 className="flex items-center justify-start gap-3 text-xl font-semibold">
+                        <FaPeopleRobbery />
+                        Married
                       </h1>
                     </Sidebar.Item>
                   </NavLink>

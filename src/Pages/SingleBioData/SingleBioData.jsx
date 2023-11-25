@@ -178,7 +178,7 @@ const SingleBioData = () => {
               <h1 className="text-center md:text-5xl text-2xl font-bold my-5">
                 Contact Information
               </h1>
-              {isPremium?.status === "premium" && (
+              {isPremium?.status === "premium" ? (
                 <div className="flex flex-col justify-center items-center gap-5 mt-5">
                   <h1 className="md:text-3xl text-xl font-light">
                     Email:{" "}
@@ -189,8 +189,7 @@ const SingleBioData = () => {
                     <span className="text-2xl"> {mobileNumber}</span>
                   </h1>
                 </div>
-              )}
-              {isPremium?.status === 'normal' && (
+              ) : (
                 <div className="flex flex-col justify-center items-center gap-3">
                   <img
                     src="https://i.ibb.co/cY64wtN/contactlocked.png"
