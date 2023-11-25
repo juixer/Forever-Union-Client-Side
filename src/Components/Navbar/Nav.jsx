@@ -2,31 +2,34 @@ import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
+import useAdmin from "../../Hooks/useAdmin/useAdmin";
+
 
 const Nav = () => {
-  const {user, userLogOut} = useAuth()
+  const { user, userLogOut } = useAuth();
+  const { isAdmin } = useAdmin();
   const handleLogOut = () => {
     userLogOut()
-    .then(() => {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Logged out successfully",
-        showConfirmButton: false,
-        timer: 1500,
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logged out successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `${err.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
-    })
-    .catch((err) => {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: `${err.message}`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    });
-  }
-
+  };
+ 
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="/">
@@ -44,13 +47,7 @@ const Nav = () => {
           <Dropdown
             arrowIcon={false}
             inline
-            label={
-              <Avatar
-                alt="User settings"
-                img={user?.photoURL}
-                rounded
-              />
-            }
+            label={<Avatar alt="User settings" img={user?.photoURL} rounded />}
           >
             <Dropdown.Header>
               <span className="block text-sm">{user?.displayName} </span>
@@ -61,7 +58,7 @@ const Nav = () => {
             <Dropdown.Item onClick={handleLogOut}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Link to={'/login'}>
+          <Link to={"/login"}>
             <Button
               gradientMonochrome="lime"
               className="text-black font-bold mr-3"
@@ -85,8 +82,19 @@ const Nav = () => {
         <NavLink className="text-lg lg:font-semibold" to={"/contactUs"}>
           Contact Us
         </NavLink>
-        {user && (
-          <NavLink className="text-lg lg:font-semibold" to={"/dashboard"}>
+        {user && isAdmin && (
+          <NavLink
+            className="text-lg lg:font-semibold"
+            to={"/dashboard/"}
+          >
+            DashBoard
+          </NavLink>
+        )}
+        {user && !isAdmin && (
+          <NavLink
+            className="text-lg lg:font-semibold"
+            to={"/dashboard/"}
+          >
             DashBoard
           </NavLink>
         )}

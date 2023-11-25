@@ -48,7 +48,7 @@ const FavBioData = () => {
             refetch()
             Swal.fire({
               title: "Deleted!",
-              text: "Your BioData deleted From Favorites!",
+              text: "BioData deleted From Favorites!",
               icon: "success",
             });
           }
@@ -59,7 +59,7 @@ const FavBioData = () => {
   return (
     <div className="my-5 max-w-3xl mx-auto">
       <Headline text={"Your Favorites BioData"} />
-      <div className="overflow-x-auto my-10">
+      <div className="overflow-x-auto my-10 shadow-xl">
         <Table striped>
           <Table.Head>
             <Table.HeadCell>Name</Table.HeadCell>
@@ -73,9 +73,9 @@ const FavBioData = () => {
               return (
                 <Table.Row
                   key={fav._id}
-                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  className="bg-white dark:border-gray-700 dark:bg-gray-800 font-semibold"
                 >
-                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  <Table.Cell className="whitespace-nowrap text-gray-900 font-semibold dark:text-white">
                     {fav.name}
                   </Table.Cell>
                   <Table.Cell>{fav.biodataId}</Table.Cell>

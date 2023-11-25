@@ -210,6 +210,9 @@ const SingleBioData = () => {
         </div>
         <div className="lg:w-[40%]">
           <div className="flex flex-col gap-y-10">
+            <h1 className="text-center md:text-5xl text-2xl font-bold">
+              Recommendation
+            </h1>
             {filterMatchedData.map((data) => (
               <BioDataCard key={data._id} data={data} />
             ))}

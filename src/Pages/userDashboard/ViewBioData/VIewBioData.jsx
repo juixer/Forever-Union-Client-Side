@@ -5,6 +5,7 @@ import useAuth from "../../../Hooks/useAuth/useAuth";
 import { Button } from "flowbite-react";
 import { FaCrown } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const VIewBioData = () => {
   const [myData, setMyData] = useState({});
@@ -72,86 +73,103 @@ const VIewBioData = () => {
     <div className="my-5 max-w-7xl mx-auto">
       <Headline text={"Your BioData Details"} />
       <div className="my-16">
-        <div className="flex flex-col justify-center items-center  gap-5 rounded-xl p-5 shadow-2xl">
-          {/* box */}
-          <div className="flex gap-16 md:flex-row flex-col">
-            <img src={profileImage} className="full_round w-80" />
-            <div className="flex flex-col gap-3">
-              <h1 className="md:text-5xl text-3xl font-light">{name}</h1>
+        {myData?.contactEmail ? (
+          <div className="flex flex-col justify-center items-center  gap-5 rounded-xl p-5 shadow-2xl">
+            {/* box */}
+            <div className="flex gap-16 md:flex-row flex-col">
+              <img src={profileImage} className="full_round w-80" />
+              <div className="flex flex-col gap-3">
+                <h1 className="md:text-5xl text-3xl font-light">{name}</h1>
 
+                <h1 className="md:text-3xl text-xl font-light">
+                  Gender: {gender}
+                </h1>
+
+                <h1 className="md:text-3xl text-xl font-light">
+                  Date of Birth: {dateOfBirth}
+                </h1>
+
+                <h1 className="md:text-3xl text-xl font-light">
+                  Age: {age} Y/O
+                </h1>
+
+                <h1 className="md:text-3xl text-xl font-light">
+                  Race: {race}{" "}
+                </h1>
+
+                <h1 className="md:text-3xl text-xl font-light">
+                  Occupation: {occupation}
+                </h1>
+              </div>
+            </div>
+            {/* BOX */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-8">
               <h1 className="md:text-3xl text-xl font-light">
-                Gender: {gender}
+                Father Name: {fathersName}
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light">
-                Date of Birth: {dateOfBirth}
+                Mother Name: {mothersName}
               </h1>
-
-              <h1 className="md:text-3xl text-xl font-light">Age: {age} Y/O</h1>
-
-              <h1 className="md:text-3xl text-xl font-light">Race: {race} </h1>
 
               <h1 className="md:text-3xl text-xl font-light">
-                Occupation: {occupation}
+                Height: {height}&quot;
               </h1>
+
+              <h1 className="md:text-3xl text-xl font-light">
+                Weight: {weight}kg
+              </h1>
+
+              <h1 className="md:text-3xl text-xl font-light">
+                Permanent Division: {permanentDivision}
+              </h1>
+
+              <h1 className="md:text-3xl text-xl font-light">
+                Present Division: {presentDivision}
+              </h1>
+
+              <h1 className="md:text-3xl text-xl font-light">
+                Expected Partner Age: {expectedPartnerAge} Y/O
+              </h1>
+
+              <h1 className="md:text-3xl text-xl font-light">
+                Expected Partner Height: {expectedPartnerHeight}&quot;
+              </h1>
+
+              <h1 className="md:text-3xl text-xl font-light">
+                Expected Partner Weight: {expectedPartnerWeight}kg
+              </h1>
+
+              <h1 className="md:text-3xl text-xl font-light">
+                Email:{" "}
+                <span className="underline text-2xl">{contactEmail}</span>
+              </h1>
+
+              <h1 className="md:text-3xl text-xl font-light">
+                Phone:
+                <span className="text-2xl"> {mobileNumber}</span>
+              </h1>
+
+              <Button
+                onClick={handlePremium}
+                gradientMonochrome="lime"
+                className="hover:animate-pulse font-bold w-full "
+              >
+                <FaCrown className="mr-3" /> Upgrade to Premium
+              </Button>
             </div>
           </div>
-          {/* BOX */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-8">
-            <h1 className="md:text-3xl text-xl font-light">
-              Father Name: {fathersName}
+        ) : (
+          <div className="flex justify-center items-center flex-col gap-5">
+            <h1 className="text-center max-w-xl mx-auto text-2xl font-bold">
+              You have not created a BioData yet. To showcase your profile and
+              make connections, click the Create BioData button below.
             </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Mother Name: {mothersName}
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Height: {height}&quot;
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Weight: {weight}kg
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Permanent Division: {permanentDivision}
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Present Division: {presentDivision}
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Expected Partner Age: {expectedPartnerAge} Y/O
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Expected Partner Height: {expectedPartnerHeight}&quot;
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Expected Partner Weight: {expectedPartnerWeight}kg
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Email: <span className="underline text-2xl">{contactEmail}</span>
-            </h1>
-
-            <h1 className="md:text-3xl text-xl font-light">
-              Phone:
-              <span className="text-2xl"> {mobileNumber}</span>
-            </h1>
-
-            <Button
-              onClick={handlePremium}
-              gradientMonochrome="lime"
-              className="hover:animate-pulse font-bold w-full "
-            >
-              <FaCrown className="mr-3" /> Upgrade to Premium
-            </Button>
+            <Link to={'/dashboard/editBioData'}>
+              <Button gradientMonochrome="lime" className="font-bold">Create BioData</Button>
+            </Link>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ import {
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
+import useAdmin from "../../../Hooks/useAdmin/useAdmin";
 
 const Dashboard = () => {
   // auth info
@@ -20,7 +21,7 @@ const Dashboard = () => {
   //   navigate
   const navigate = useNavigate();
   // fake admin
-  const admin = false;
+  const {isAdmin} = useAdmin();
 
   // handle sign out
   const handleSignOut = () => {
@@ -51,7 +52,7 @@ const Dashboard = () => {
         <Sidebar className="w-full lg:w-fit border lg:fixed ">
           <Sidebar.Items>
             <Sidebar.ItemGroup className="md:flex md:items-center md:overflow-x-scroll lg:overflow-hidden lg:block ove">
-              {admin ? (
+              {isAdmin ? (
                 <>
                   <NavLink to={"/dashboard/adminDashboard"}>
                     <Sidebar.Item>
@@ -61,7 +62,7 @@ const Dashboard = () => {
                     </Sidebar.Item>
                   </NavLink>
                   <hr />
-                  <NavLink to={"/dashboard/manageUsers"}>
+                  <NavLink to={"/dashboard/manage"}>
                     <Sidebar.Item>
                       <h1 className="flex  items-center justify-start gap-3 text-xl font-semibold">
                         <FaUserGroup /> Manage Users

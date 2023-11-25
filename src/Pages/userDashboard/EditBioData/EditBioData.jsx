@@ -423,7 +423,7 @@ const EditBioData = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate(-1);
+        navigate('/dashboard/viewBioData');
       });
     }
   };

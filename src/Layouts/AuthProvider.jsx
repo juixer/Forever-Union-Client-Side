@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/Firebase.config";
+import { axiosPublic } from "../Hooks/useAxiosPublic/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -23,32 +24,32 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
-  // create user 
+  // create user
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
-  }
+  };
 
   // update user
   const updateUser = (name, image) => {
     setLoading(true);
-    return updateProfile(auth.currentUser,{
+    return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: image,
-    })
-  }
+    });
+  };
 
   // loginUser with email and password
   const logInUser = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   //   log out user
   const userLogOut = () => {
-    setLoading(true)
-    return signOut(auth)
-  }
+    setLoading(true);
+    return signOut(auth);
+  };
   const authInfo = {
     googleLogin,
     loading,
@@ -56,13 +57,26 @@ const AuthProvider = ({ children }) => {
     userLogOut,
     createUser,
     updateUser,
-    logInUser
+    logInUser,
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+
+      const loggedEmail = currentUser?.email || user?.email;
+      const userEmail = { email: loggedEmail };
+      if (currentUser) {
+        axiosPublic.post("/jwt", userEmail).then((res) => {
+          console.log(res.data);
+          setLoading(false);
+        });
+      } else {
+        axiosPublic.post("/logout", userEmail).then((res) => {
+          console.log(res.data);
+          setLoading(false);
+        });
+      }
       return () => {
         unsubscribe();
       };

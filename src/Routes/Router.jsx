@@ -10,6 +10,9 @@ import Dashboard from "../Pages/Home/Dashboard/Dashboard";
 import EditBioData from "../Pages/userDashboard/EditBioData/EditBioData";
 import VIewBioData from "../Pages/userDashboard/ViewBioData/VIewBioData";
 import FavBioData from "../Pages/userDashboard/FavBioData/FavBioData";
+import AdminDashBoard from "../Pages/AdminDashBoard/AdminDashBoard";
+import DashHome from "../Pages/Home/Dashboard/DashHome";
+import ManageUser from "../Pages/AdminDashBoard/ManageUser/ManageUser";
 
 const Router = createBrowserRouter([
   {
@@ -42,13 +45,40 @@ const Router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "/dashboard/",
     element: (
       <PrivateRoute>
         <Dashboard />
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "/dashboard/",
+        element: (
+          <PrivateRoute>
+            <DashHome />
+          </PrivateRoute>
+        ),
+      },
+      // admi
+      {
+        path: "/dashboard/adminDashboard",
+        element: (
+          <PrivateRoute>
+            <AdminDashBoard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage",
+        element: (
+          <PrivateRoute>
+            <ManageUser />
+          </PrivateRoute>
+        ),
+      },
+
+      // user
       {
         path: "/dashboard/editBioData",
         element: (
