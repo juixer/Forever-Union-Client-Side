@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 
 const SingleBioData = () => {
   const { user } = useAuth();
-  const fakeuser = true;
+  const fakeuser = false;
 
   // single bio data details
   const bioDataInfo = useLoaderData();
@@ -92,7 +92,7 @@ const SingleBioData = () => {
   return (
     <Container>
       <div className="my-5 flex lg:flex-row flex-col gap-10">
-        <div className="lg:w-[60%]">
+        <div className="lg:w-[60%] p-5 shadow-2xl rounded-xl">
           <h1 className="text-center md:text-5xl text-2xl font-bold my-10">
             BioData ID-{biodataId} Details
           </h1>
@@ -135,7 +135,7 @@ const SingleBioData = () => {
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light">
-                Height: {height}"
+                Height: {height}&quot;
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light">
@@ -155,7 +155,7 @@ const SingleBioData = () => {
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light">
-                Expected Partner Height: {expectedPartnerHeight}"
+                Expected Partner Height: {expectedPartnerHeight}&quot;
               </h1>
 
               <h1 className="md:text-3xl text-xl font-light md:col-span-2">

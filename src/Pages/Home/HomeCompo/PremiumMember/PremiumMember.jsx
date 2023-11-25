@@ -13,7 +13,7 @@ const PremiumMember = () => {
     );
   }
   if (error) {
-    console.log(error.message);
+    return console.log(error.message);
   }
   return (
     <div className="my-10">

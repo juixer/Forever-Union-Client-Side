@@ -1,14 +1,26 @@
-import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import Headline from "../../../Shared/Headline/Headline";
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const EditBioData = () => {
+  //   navigate
+  const navigate = useNavigate();
+  // auth info
+  const { user } = useAuth();
+  const [myData, setMyData] = useState({});
+  useEffect(() => {
+    if (user) {
+      axiosPublic.get(`/mydata/${user.email}`).then((res) => {
+        setMyData(res.data);
+      });
+    }
+  }, [user]);
+
   const [gender, setGender] = useState(null);
   const [height, setHeight] = useState(null);
   const [weight, setWeight] = useState(null);
@@ -18,84 +30,22 @@ const EditBioData = () => {
   const [present, setPresent] = useState(null);
   const [exHeight, setExHeight] = useState(null);
   const [exWeight, setExWeight] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-//   navigate
-const navigate = useNavigate()
+  useEffect(() => {
+    setGender(myData?.gender || null);
+    setHeight(myData?.height || null);
+    setWeight(myData?.weight || null);
+    setRace(myData?.race || null);
+    setOccupation(myData?.occupation || null);
+    setPermanent(myData?.permanentDivision || null);
+    setPresent(myData?.presentDivision || null);
+    setExHeight(myData?.expectedPartnerHeight || null);
+    setExWeight(myData?.expectedPartnerWeight || null);
+  }, [myData]);
 
-  // genderChange
-  const genderChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setGender(value);
-    }
-  };
+  // Update states when myData changes
 
-  // heightChange
-  const heightChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setHeight(value);
-    }
-  };
-
-  // weightChange
-  const weightChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setWeight(value);
-    }
-  };
-
-  // raceChange
-  const raceChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setRace(value);
-    }
-  };
-
-  // occupationChange
-  const occupationChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setOccupation(value);
-    }
-  };
-
-  // permanentChange
-  const permanentChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setPermanent(value);
-    }
-  };
-
-  // presentChange
-  const presentChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setPresent(value);
-    }
-  };
-
-  // exHeightChange
-  const exHeightChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setExHeight(value);
-    }
-  };
-
-  // exWeightChange
-  const exWeightChange = (selectedOption) => {
-    if (selectedOption) {
-      const value = selectedOption.value;
-      setExWeight(value);
-    }
-  };
-
-  // auth info
-  const { user } = useAuth();
   //  react select Data
   const genders = [
     { value: "Male", label: "Male" },
@@ -354,14 +304,88 @@ const navigate = useNavigate()
     { value: "7'5", label: "7'5\"" },
     { value: "7'5+", label: "7'5+\"" },
   ];
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
-  const onSubmit = async (data) => {
-    const imgFile = { image: data.profileImage[0] };
+  // genderChange
+  const genderChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setGender(value);
+    }
+  };
+
+  // heightChange
+  const heightChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setHeight(value);
+    }
+  };
+
+  // weightChange
+  const weightChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setWeight(value);
+    }
+  };
+
+  // raceChange
+  const raceChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setRace(value);
+    }
+  };
+
+  // occupationChange
+  const occupationChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setOccupation(value);
+    }
+  };
+
+  // permanentChange
+  const permanentChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setPermanent(value);
+    }
+  };
+
+  // presentChange
+  const presentChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setPresent(value);
+    }
+  };
+
+  // exHeightChange
+  const exHeightChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setExHeight(value);
+    }
+  };
+
+  // exWeightChange
+  const exWeightChange = (selectedOption) => {
+    if (selectedOption) {
+      const value = selectedOption.value;
+      setExWeight(value);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    // Update the state with the selected file
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleFormData = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const imgFile = { image: selectedFile };
     const imgRes = await axios.post(
       `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBBKEY}`,
       imgFile,
@@ -371,47 +395,44 @@ const navigate = useNavigate()
     );
     if (imgRes.data.success) {
       const bioDataInfo = {
-        name: data.name,
-        profileImage: imgRes.data.data.url,
+        name: form.name.value,
         gender: gender,
-        dateOfBirth: data.dateOfBirth,
+        profileImage: imgRes.data.data.url,
+        dateOfBirth: form.dateOfBirth.value,
         height: height,
         weight: weight,
-        age: data.age,
+        age: form.age.value,
         occupation: occupation,
         race: race,
-        fathersName: data.fathersName,
-        mothersName: data.mothersName,
-        expectedPartnerAge: data.expectedPartnerAge,
+        fathersName: form.fathersName.value,
+        mothersName: form.mothersName.value,
+        expectedPartnerAge: form.expectedPartnerAge.value,
         expectedPartnerHeight: exHeight,
         expectedPartnerWeight: exWeight,
-        contactEmail: data.contactEmail,
-        mobileNumber: data.mobileNumber,
+        contactEmail: form.contactEmail.value,
+        mobileNumber: form.mobileNumber.value,
         permanentDivision: permanent,
         presentDivision: present,
       };
-
-     axiosPublic.put('/biodatas', bioDataInfo)
-     .then(res =>{
-        if(res.data.matchedCount > 0){
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "BioData Created Successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              navigate('/')
-        }
-     })
+      axiosPublic.put("/biodatas", bioDataInfo).then((res) => {
+        console.log(res.data);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "BioData has been successfully saved",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(-1);
+      });
     }
   };
 
   return (
     <div className="my-10">
       <Headline text={"Edit Your BioData"} />
-      <div className="max-w-4xl  mx-auto my-5">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+      <div className="max-w-4xl  mx-auto my-5 p-5 rounded-xl shadow-2xl">
+        <form onSubmit={handleFormData} className="space-y-3">
           <div className="flex flex-col md:flex-row gap-5">
             <div className="w-full">
               <h1 className="text-xl font-semibold">
@@ -420,22 +441,22 @@ const navigate = useNavigate()
               <input
                 type="text"
                 className="w-full rounded-lg"
-                defaultValue={user?.displayName}
-                {...register("name", { required: "Please Provide Your Name" })}
+                defaultValue={myData?.name && myData.name}
+                // {...register("name")}
+                name="name"
+                required
               />
-              {errors.name && (
-                <span className="font-semibold text-red-600">
-                  {errors.name.message}
-                </span>
-              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">Contact Email</h1>
               <input
                 type="email"
                 className="w-full rounded-lg"
-                {...register("contactEmail")}
-                defaultValue={user?.email}
+                // {...register("contactEmail")}
+                name="contactEmail"
+                defaultValue={
+                  myData?.contactEmail ? myData.contactEmail : user?.email
+                }
                 readOnly
               />
             </div>
@@ -449,16 +470,12 @@ const navigate = useNavigate()
               <input
                 type="text"
                 className="w-full rounded-lg"
-                {...register("mobileNumber", {
-                  required: "Please Provide Your Number",
-                })}
+                defaultValue={myData?.mobileNumber && myData.mobileNumber}
+                // {...register("mobileNumber")}
+                name="mobileNumber"
                 placeholder="Please Enter Your Phone Number"
+                required
               />
-              {errors.mobileNumber && (
-                <span className="font-semibold text-red-600">
-                  {errors.mobileNumber.message}
-                </span>
-              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">
@@ -468,17 +485,13 @@ const navigate = useNavigate()
                 type="number"
                 min={21}
                 max={100}
-                {...register("age", {
-                  required: "Please Provide Your Age",
-                })}
+                defaultValue={myData?.age}
+                // {...register("age")}
+                name="age"
+                required
                 className="w-full rounded-lg"
                 placeholder="Starting From 21 Years Old"
               />
-              {errors.age && (
-                <span className="font-semibold text-red-600">
-                  {errors.age.message}
-                </span>
-              )}
             </div>
           </div>
 
@@ -487,7 +500,13 @@ const navigate = useNavigate()
               <h1 className="text-xl font-semibold">
                 Gender<span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select options={genders} onChange={genderChange} required />
+              <Select options={genders} onChange={genderChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">{myData?.gender}</span>
+                </h1>
+              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">
@@ -496,16 +515,12 @@ const navigate = useNavigate()
               </h1>
               <input
                 type="date"
-                {...register("dateOfBirth", {
-                  required: "Please Provide Your Date Of Birth",
-                })}
+                defaultValue={myData?.dateOfBirth ? myData.dateOfBirth : null}
+                // {...register("dateOfBirth")}
+                name="dateOfBirth"
                 className="w-full rounded-lg"
+                required
               />
-              {errors.dateOfBirth && (
-                <span className="font-semibold text-red-600">
-                  {errors.dateOfBirth.message}
-                </span>
-              )}
             </div>
           </div>
 
@@ -517,16 +532,12 @@ const navigate = useNavigate()
               <input
                 type="text"
                 className="w-full rounded-lg"
+                defaultValue={myData?.fathersName && myData.fathersName}
                 placeholder="Please Enter Your Father Name"
-                {...register("fathersName", {
-                  required: "Please Provide Your Father Name",
-                })}
+                // {...register("fathersName")}
+                name="fathersName"
+                required
               />
-              {errors.fathersName && (
-                <span className="font-semibold text-red-600">
-                  {errors.fathersName.message}
-                </span>
-              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">
@@ -535,16 +546,12 @@ const navigate = useNavigate()
               <input
                 type="text"
                 className="w-full rounded-lg"
+                defaultValue={myData?.mothersName && myData.mothersName}
                 placeholder="Please Enter Your Mother Name"
-                {...register("mothersName", {
-                  required: "Please Provide Your Mother Name",
-                })}
+                // {...register("mothersName")}
+                name="mothersName"
+                required
               />
-              {errors.mothersName && (
-                <span className="font-semibold text-red-600">
-                  {errors.mothersName.message}
-                </span>
-              )}
             </div>
           </div>
 
@@ -553,13 +560,25 @@ const navigate = useNavigate()
               <h1 className="text-xl font-semibold">
                 Height<span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select options={heights} onChange={heightChange} required />
+              <Select options={heights} onChange={heightChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">{myData?.height}	&quot; </span>
+                </h1>
+              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">
                 Weight<span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select options={weights} onChange={weightChange} required />
+              <Select options={weights} onChange={weightChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">{myData?.weight}kg</span>
+                </h1>
+              )}
             </div>
           </div>
 
@@ -568,18 +587,26 @@ const navigate = useNavigate()
               <h1 className="text-xl font-semibold">
                 Race<span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select options={races} onChange={raceChange} required />
+              <Select options={races} onChange={raceChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">{myData?.race}</span>
+                </h1>
+              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">
                 Occupation
                 <span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select
-                options={occupations}
-                onChange={occupationChange}
-                required
-              />
+              <Select options={occupations} onChange={occupationChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">{myData?.occupation}</span>
+                </h1>
+              )}
             </div>
           </div>
 
@@ -589,22 +616,30 @@ const navigate = useNavigate()
                 Permanent Division
                 <span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select
-                options={permaDivision}
-                onChange={permanentChange}
-                required
-              />
+              <Select options={permaDivision} onChange={permanentChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">
+                    {myData?.presentDivision}
+                  </span>
+                </h1>
+              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">
                 Present Division
                 <span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select
-                options={presentDivision}
-                onChange={presentChange}
-                required
-              />
+              <Select options={presentDivision} onChange={presentChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">
+                    {myData?.presentDivision}
+                  </span>
+                </h1>
+              )}
             </div>
           </div>
 
@@ -614,22 +649,30 @@ const navigate = useNavigate()
                 Expected Partner Height
                 <span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select
-                options={expectedHeights}
-                onChange={exHeightChange}
-                required
-              />
+              <Select options={expectedHeights} onChange={exHeightChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">
+                    {myData?.expectedPartnerHeight}	&quot;
+                  </span>
+                </h1>
+              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">
                 Expected Partner Weight
                 <span className="font-semibold text-red-600">*</span>
               </h1>
-              <Select
-                options={expectedWeights}
-                onChange={exWeightChange}
-                required
-              />
+              <Select options={expectedWeights} onChange={exWeightChange} />
+              {myData && (
+                <h1 className="text-lg">
+                  Selected:{" "}
+                  <span className="font-semibold">
+                    {myData?.expectedPartnerWeight}kg
+                  </span>
+                </h1>
+              )}
             </div>
           </div>
 
@@ -644,16 +687,14 @@ const navigate = useNavigate()
                 min={21}
                 max={100}
                 className="w-full rounded-lg"
+                defaultValue={
+                  myData?.expectedPartnerAge && myData.expectedPartnerAge
+                }
                 placeholder="Starting From 21 Years Old"
-                {...register("expectedPartnerAge", {
-                  required: "Please Provide Your Partner Age",
-                })}
+                // {...register("expectedPartnerAge")}
+                name="expectedPartnerAge"
+                required
               />
-              {errors.expectedPartnerAge && (
-                <span className="font-semibold text-red-600">
-                  {errors.expectedPartnerAge.message}
-                </span>
-              )}
             </div>
             <div className="w-full">
               <h1 className="text-xl font-semibold">
@@ -662,16 +703,12 @@ const navigate = useNavigate()
               </h1>
               <input
                 type="file"
+                onChange={handleFileChange}
                 className="w-full border border-black rounded-lg"
-                {...register("profileImage", {
-                  required: "Please Provide Your Profile Picture",
-                })}
+                // {...register("profileImage")}
+                name="profileImage"
+                required
               />
-              {errors.profileImage && (
-                <span className="font-semibold text-red-600">
-                  {errors.profileImage.message}
-                </span>
-              )}
             </div>
           </div>
           <div>

@@ -8,6 +8,8 @@ import SingleBioData from "../Pages/SingleBioData/SingleBioData";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Pages/Home/Dashboard/Dashboard";
 import EditBioData from "../Pages/userDashboard/EditBioData/EditBioData";
+import VIewBioData from "../Pages/userDashboard/ViewBioData/VIewBioData";
+import FavBioData from "../Pages/userDashboard/FavBioData/FavBioData";
 
 const Router = createBrowserRouter([
   {
@@ -52,6 +54,22 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <EditBioData />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/viewBioData",
+        element: (
+          <PrivateRoute>
+            <VIewBioData />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/favoritesBiodata",
+        element: (
+          <PrivateRoute>
+            <FavBioData />
           </PrivateRoute>
         ),
       },

@@ -46,9 +46,9 @@ const Dashboard = () => {
       });
   };
   return (
-    <div className="flex flex-col lg:flex-row justify-center items-center">
+    <div className="flex flex-col lg:flex-row">
       <div className="w-full lg:w-[15%]">
-        <Sidebar className="w-full lg:w-fit border">
+        <Sidebar className="w-full lg:w-fit border lg:fixed ">
           <Sidebar.Items>
             <Sidebar.ItemGroup className="md:flex md:items-center md:overflow-x-scroll lg:overflow-hidden lg:block ove">
               {admin ? (
@@ -123,7 +123,7 @@ const Dashboard = () => {
                 </>
               )}
               <hr />
-              <NavLink to={"/dashboard/contactRequest"} onClick={handleSignOut}>
+              <NavLink onClick={handleSignOut}>
                 <Sidebar.Item>
                   <h1 className="flex items-center justify-start gap-3 text-xl font-semibold">
                     <FaPersonRunning /> Log Out
