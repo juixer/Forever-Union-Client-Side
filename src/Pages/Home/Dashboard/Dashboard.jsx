@@ -133,7 +133,7 @@ const Dashboard = () => {
                     </Sidebar.Item>
                   </NavLink>
                   <hr />
-                  <NavLink to={"/dashboard/married"}>
+                  <NavLink to={"/dashboard/gotMarried"}>
                     <Sidebar.Item>
                       <h1 className="flex items-center justify-start gap-3 text-xl font-semibold">
                         <FaPeopleRobbery />
