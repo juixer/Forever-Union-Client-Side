@@ -15,6 +15,7 @@ const PremiumMember = () => {
   if (error) {
     return console.log(error.message);
   }
+  
   return (
     <div className="my-10">
       <Headline text={"Our Premium Members"} />
