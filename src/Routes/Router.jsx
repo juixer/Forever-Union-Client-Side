@@ -15,6 +15,7 @@ import DashHome from "../Pages/Home/Dashboard/DashHome";
 import ManageUser from "../Pages/AdminDashBoard/ManageUser/ManageUser";
 import ApprovePremium from "../Pages/AdminDashBoard/Approve Premium/ApprovePremium";
 import CHeckout from "../Pages/Checkout/CHeckout";
+import ContactRequest from "../Pages/userDashboard/ContactRequest/ContactRequest";
 
 const Router = createBrowserRouter([
   {
@@ -120,6 +121,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <FavBioData />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/contactRequest",
+        element: (
+          <PrivateRoute>
+            <ContactRequest />
           </PrivateRoute>
         ),
       },

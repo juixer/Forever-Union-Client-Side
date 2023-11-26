@@ -1,11 +1,15 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import { axiosSecure } from "../../Hooks/useAxiosSecure/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Payment = ({ reqData, myData, user }) => {
   const [paymentErr, setPaymentErr] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
+
+  const navigate = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -66,6 +70,31 @@ const Payment = ({ reqData, myData, user }) => {
       if (paymentIntent.status === "succeeded") {
         console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
+
+        const payment = {
+          email: user.email,
+          name: user.displayName,
+          price: priceInt,
+          transID: paymentIntent.id,
+          reqName: reqData.name,
+          reqBiodataId: reqData.biodataId,
+          userBiodataId: myData.biodataId,
+          reqEmail: reqData.contactEmail,
+          reqPhone: reqData.mobileNumber,
+          contactStatus: "pending",
+        };
+
+        const res = await axiosSecure.post("/payments", payment);
+        if (res.data.paymentResult.insertedId) {
+            navigate('/')
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Payment Complete, Please Wait for Admin Verification",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       }
     }
   };
@@ -121,7 +150,9 @@ const Payment = ({ reqData, myData, user }) => {
         />
         <span className="text-red-600 font-semibold">{paymentErr}</span>
         {transactionId && (
-          <span className="text-green-600 font-semibold">Transaction ID : {transactionId}</span>
+          <span className="text-green-600 font-semibold">
+            Transaction ID : {transactionId}
+          </span>
         )}
         <input
           disabled={!stripe || !clientSecret}
