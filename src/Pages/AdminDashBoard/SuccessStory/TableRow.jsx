@@ -20,7 +20,7 @@ const TableRow = ({ story }) => {
           gradientMonochrome="lime"
           className="font-semibold"
         >
-          Cyan
+          View
         </Button>
         <Modal
           dismissible

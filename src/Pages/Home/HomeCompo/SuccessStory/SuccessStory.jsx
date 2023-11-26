@@ -9,8 +9,33 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { Pagination, Autoplay } from "swiper/modules";
 import Rating from "react-rating";
+import { useQuery } from "@tanstack/react-query";
+import { axiosPublic } from "../../../../Hooks/useAxiosPublic/useAxiosPublic";
+import { HashLoader } from "react-spinners";
 
 const SuccessStory = () => {
+  const {
+    isPending,
+    error,
+    data: successStory = [],
+  } = useQuery({
+    queryKey: ["successStory"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/getSuccessStory");
+      return res.data;
+    },
+  });
+
+  if (isPending) {
+    return (
+      <div className="flex justify-center items-center py-44">
+        <HashLoader color="#7ad737" />
+      </div>
+    );
+  }
+  if (error) {
+    return console.log(error.message);
+  }
   return (
     <div className="my-16">
       <Headline text={"Successful Love Stories"} />
@@ -22,81 +47,29 @@ const SuccessStory = () => {
         autoplay={{ delay: 3000 }}
         className="mySwiper my-10 text-center"
       >
-        <SwiperSlide>
-          <div className="rounded-xl mb-10 overflow-hidden flex flex-col gap-2 justify-center items-center">
-            <img
-              src="https://i.ibb.co/44t3Vy0/couple-1.png"
-              className="w-56 full_round"
-            />
-            <Rating
-              className="text-orange-400"
-              placeholderRating={3.5}
-              emptySymbol={<FaRegStar />}
-              placeholderSymbol={<FaStar />}
-              fullSymbol={<FaStar />}
-            />
-            <h1 className="font-bold text-xl">10-10-2024</h1>
-            <p className="max-w-lg mx-auto">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
-              dolorem dolor voluptas accusamus minima rerum, quod at neque
-              eveniet incidunt fugiat cumque, aut ipsum mollitia quibusdam.
-              Natus recusandae, id tempora quidem facilis saepe sint aperiam?
-              Deserunt quaerat corrupti laboriosam, sapiente praesentium nemo ex
-              adipisci. Quaerat earum commodi modi soluta quia. Ex velit
-              inventore ipsam quis iure magni reprehenderit suscipit architecto.
-            </p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="rounded-xl overflow-hidden flex flex-col gap-2 justify-center items-center">
-            <img
-              src="https://i.ibb.co/44t3Vy0/couple-1.png"
-              className="w-56 full_round"
-            />
-            <Rating
-              className="text-orange-400"
-              placeholderRating={3.5}
-              emptySymbol={<FaRegStar />}
-              placeholderSymbol={<FaStar />}
-              fullSymbol={<FaStar />}
-            />
-            <h1 className="font-bold text-xl">10-10-2024</h1>
-            <p className="max-w-lg mx-auto">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
-              dolorem dolor voluptas accusamus minima rerum, quod at neque
-              eveniet incidunt fugiat cumque, aut ipsum mollitia quibusdam.
-              Natus recusandae, id tempora quidem facilis saepe sint aperiam?
-              Deserunt quaerat corrupti laboriosam, sapiente praesentium nemo ex
-              adipisci. Quaerat earum commodi modi soluta quia. Ex velit
-              inventore ipsam quis iure magni reprehenderit suscipit architecto.
-            </p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="rounded-xl overflow-hidden flex flex-col gap-2 justify-center items-center">
-            <img
-              src="https://i.ibb.co/44t3Vy0/couple-1.png"
-              className="w-56 full_round"
-            />
-            <Rating
-              className="text-orange-400"
-              placeholderRating={3.5}
-              emptySymbol={<FaRegStar />}
-              placeholderSymbol={<FaStar />}
-              fullSymbol={<FaStar />}
-            />
-            <h1 className="font-bold text-xl">10-10-2024</h1>
-            <p className="max-w-lg mx-auto">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat
-              dolorem dolor voluptas accusamus minima rerum, quod at neque
-              eveniet incidunt fugiat cumque, aut ipsum mollitia quibusdam.
-              Natus recusandae, id tempora quidem facilis saepe sint aperiam?
-              Deserunt quaerat corrupti laboriosam, sapiente praesentium nemo ex
-              adipisci. Quaerat earum commodi modi soluta quia. Ex velit
-              inventore ipsam quis iure magni reprehenderit suscipit architecto.
-            </p>
-          </div>
-        </SwiperSlide>
+        {successStory.map((story) => {
+          return (
+            <SwiperSlide key={story._id}>
+              <div className="rounded-xl mb-10 overflow-hidden flex flex-col gap-2 justify-center items-center">
+                <img
+                  src={story.image}
+                  className="w-56 full_round"
+                />
+                <Rating
+                  className="text-orange-400"
+                  placeholderRating={story.rating}
+                  emptySymbol={<FaRegStar />}
+                  placeholderSymbol={<FaStar />}
+                  fullSymbol={<FaStar />}
+                />
+                <h1 className="font-bold text-xl">{story.marriageDate}</h1>
+                <p className="max-w-lg mx-auto font-semibold">
+                 {story.story}
+                </p>
+              </div>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );

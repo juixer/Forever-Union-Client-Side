@@ -1,6 +1,10 @@
+import useStats from "../../../../Hooks/useStats/useStats";
 import Headline from "../../../../Shared/Headline/Headline";
 import StatsCard from "../../../../Shared/StatsCard/StatsCard";
 const StatsCounter = () => {
+
+  const {stats} = useStats()
+  console.log(stats);
   return (
     <div className="my-16 ">
       <Headline text={"Journey of Hearts"} />
@@ -10,28 +14,28 @@ const StatsCounter = () => {
 
         <StatsCard
           img={"https://i.ibb.co/WFxQg62/group.png"}
-          count={"600"}
+          count={stats.totalBioData}
           title={"Total BioData"}
         />
         {/* stats */}
 
         <StatsCard
           img={"https://i.ibb.co/hgpD8fc/male.png"}
-          count={"250"}
+          count={stats.totalBoys}
           title={"Total Boys"}
         />
         {/* stats */}
 
         <StatsCard
           img={"https://i.ibb.co/cxgD3Mm/female.png"}
-          count={"250"}
+          count={stats.totalGirls}
           title={"Total Girls"}
         />
 
         {/* stats */}
         <StatsCard
           img={"https://i.ibb.co/bbpxB6C/marriage.png"}
-          count={"100"}
+          count={stats.totalMarriage}
           title={"Total Marriage"}
         />
       </div>

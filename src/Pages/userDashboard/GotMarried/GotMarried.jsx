@@ -34,7 +34,7 @@ const GotMarried = () => {
       };
       const storyRes = await axiosPublic.post("/successStory", successStory);
       if (storyRes.data.insertedId) {
-        navigate(-1)
+        navigate('/dashboard/')
         Swal.fire({
           position: "center",
           icon: "success",
