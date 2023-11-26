@@ -7,7 +7,7 @@ import BioDataCard from "../../Shared/BioDataCard/BioDataCard";
 import { HashLoader } from "react-spinners";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import usePremium from "../../Hooks/usePremium/usePremium";
 
 const SingleBioData = () => {
@@ -199,12 +199,14 @@ const SingleBioData = () => {
                     BioData Contact Information Locked Pay 500TK to Get Access
                     of the Contact
                   </h1>
-                  <Button
-                    gradientMonochrome="lime"
-                    className="animate-pulse font-bold w-full "
-                  >
-                    <FaLock className="mr-2" /> Request Contact Information
-                  </Button>
+                  <Link to={`/checkout/${_id}`}>
+                    <Button
+                      gradientMonochrome="lime"
+                      className="animate-pulse font-bold w-full "
+                    >
+                      <FaLock className="mr-2" /> Request Contact Information
+                    </Button>
+                  </Link>
                 </div>
               )}
             </div>

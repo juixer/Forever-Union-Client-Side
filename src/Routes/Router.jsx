@@ -14,6 +14,7 @@ import AdminDashBoard from "../Pages/AdminDashBoard/AdminDashBoard";
 import DashHome from "../Pages/Home/Dashboard/DashHome";
 import ManageUser from "../Pages/AdminDashBoard/ManageUser/ManageUser";
 import ApprovePremium from "../Pages/AdminDashBoard/Approve Premium/ApprovePremium";
+import CHeckout from "../Pages/Checkout/CHeckout";
 
 const Router = createBrowserRouter([
   {
@@ -38,6 +39,16 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SingleBioData />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/biodata/${params.id}`),
+      },
+      {
+        path: "/checkout/:id",
+        element: (
+          <PrivateRoute>
+            <CHeckout />
           </PrivateRoute>
         ),
         loader: ({ params }) =>

@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import Headline from "../../../Shared/Headline/Headline";
-import dashBoardAni from '../../../../public/dashboard.json'
+import dashBoardAni from '../../../assets/dashboard.json'
 import useAuth from "../../../Hooks/useAuth/useAuth";
 
 const DashHome = () => {
