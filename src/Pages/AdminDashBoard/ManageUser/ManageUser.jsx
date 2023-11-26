@@ -143,10 +143,10 @@ const ManageUser = () => {
   };
 
   return (
-    <div className="my-5 max-w-4xl mx-auto">
+    <div className="my-5 max-w-3xl mx-auto">
       <Headline text={"Manage Users"} />
       <div className="overflow-x-auto my-10 shadow-xl">
-        <Table striped>
+        <Table hoverable>
           <Table.Head>
             <Table.HeadCell>User Name</Table.HeadCell>
             <Table.HeadCell>User Email</Table.HeadCell>

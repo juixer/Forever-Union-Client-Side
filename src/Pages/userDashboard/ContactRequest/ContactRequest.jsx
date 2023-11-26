@@ -66,7 +66,7 @@ const ContactRequest = () => {
         </h1>
       ) : (
         <div className="overflow-x-auto my-10 shadow-xl">
-          <Table striped>
+          <Table hoverable>
             <Table.Head>
               <Table.HeadCell>Name</Table.HeadCell>
               <Table.HeadCell>BioData ID</Table.HeadCell>

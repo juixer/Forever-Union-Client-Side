@@ -18,6 +18,7 @@ import CHeckout from "../Pages/Checkout/CHeckout";
 import ContactRequest from "../Pages/userDashboard/ContactRequest/ContactRequest";
 import ApproveContactReq from "../Pages/AdminDashBoard/Approve Contact Req/ApproveContactReq";
 import GotMarried from "../Pages/userDashboard/GotMarried/GotMarried";
+import SuccessStory from "../Pages/AdminDashBoard/SuccessStory/SuccessStory";
 
 const Router = createBrowserRouter([
   {
@@ -105,6 +106,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ApproveContactReq />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/successStory",
+        element: (
+          <PrivateRoute>
+            <SuccessStory />
           </PrivateRoute>
         ),
       },

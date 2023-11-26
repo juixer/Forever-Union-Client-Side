@@ -64,7 +64,7 @@ const ApproveContactReq = () => {
         </h1>
       ) : (
         <div className="overflow-x-auto my-10 shadow-xl">
-          <Table striped>
+          <Table hoverable>
             <Table.Head>
               <Table.HeadCell>Requester Name</Table.HeadCell>
               <Table.HeadCell>Requester Email</Table.HeadCell>
