@@ -16,6 +16,7 @@ import ManageUser from "../Pages/AdminDashBoard/ManageUser/ManageUser";
 import ApprovePremium from "../Pages/AdminDashBoard/Approve Premium/ApprovePremium";
 import CHeckout from "../Pages/Checkout/CHeckout";
 import ContactRequest from "../Pages/userDashboard/ContactRequest/ContactRequest";
+import ApproveContactReq from "../Pages/AdminDashBoard/Approve Contact Req/ApproveContactReq";
 
 const Router = createBrowserRouter([
   {
@@ -95,6 +96,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ApprovePremium />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/approvedContactRequest",
+        element: (
+          <PrivateRoute>
+            <ApproveContactReq />
           </PrivateRoute>
         ),
       },

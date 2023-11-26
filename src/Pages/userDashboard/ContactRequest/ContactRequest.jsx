@@ -98,7 +98,7 @@ const ContactRequest = () => {
                       {" "}
                       {req.contactStatus === "pending"
                         ? req.contactStatus
-                        : req.email}
+                        : req.reqEmail}
                     </Table.Cell>
 
                     <Table.Cell>

@@ -80,7 +80,7 @@ const Dashboard = () => {
                     </Sidebar.Item>
                   </NavLink>
                   <hr />
-                  <NavLink to={"/dashboard/approveContact"}>
+                  <NavLink to={"/dashboard/approvedContactRequest"}>
                     <Sidebar.Item>
                       <h1 className="flex  items-center justify-start gap-3 text-xl font-semibold">
                         <FaPeopleGroup /> Approve Contact Req
@@ -137,7 +137,7 @@ const Dashboard = () => {
                     <Sidebar.Item>
                       <h1 className="flex items-center justify-start gap-3 text-xl font-semibold">
                         <FaPeopleRobbery />
-                        Married
+                       Got Married
                       </h1>
                     </Sidebar.Item>
                   </NavLink>

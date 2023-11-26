@@ -52,41 +52,47 @@ const ApprovePremium = () => {
   return (
     <div className="my-5 max-w-4xl mx-auto">
       <Headline text={"Premium Requests"} />
-      <div className="overflow-x-auto my-10 shadow-xl">
-        <Table striped>
-          <Table.Head>
-            <Table.HeadCell>Name</Table.HeadCell>
-            <Table.HeadCell>Email</Table.HeadCell>
-            <Table.HeadCell>BioData</Table.HeadCell>
-            <Table.HeadCell>Make Premium</Table.HeadCell>
-          </Table.Head>
-          <Table.Body className="divide-y">
-            {pendingReq.map((req) => {
-              return (
-                <Table.Row
-                  key={req._id}
-                  className="bg-white dark:border-gray-700 dark:bg-gray-800 font-semibold"
-                >
-                  <Table.Cell className="whitespace-nowrap text-gray-900 font-semibold dark:text-white">
-                    {req.name}
-                  </Table.Cell>
-                  <Table.Cell>{req.contactEmail}</Table.Cell>
-                  <Table.Cell>{req.biodataId}</Table.Cell>
-                  <Table.Cell>
-                    {" "}
-                    <Button
-                      gradientDuoTone="purpleToBlue"
-                      onClick={() => handleMakePremium(req)}
-                    >
-                      <FaRegStar />
-                    </Button>
-                  </Table.Cell>
-                </Table.Row>
-              );
-            })}
-          </Table.Body>
-        </Table>
-      </div>
+      {pendingReq === 0 ? (
+        <h1 className="text-2xl text-center font-semibold mt-10">
+          There is no Premium Pending Request Available!
+        </h1>
+      ) : (
+        <div className="overflow-x-auto my-10 shadow-xl">
+          <Table striped>
+            <Table.Head>
+              <Table.HeadCell>Name</Table.HeadCell>
+              <Table.HeadCell>Email</Table.HeadCell>
+              <Table.HeadCell>BioData</Table.HeadCell>
+              <Table.HeadCell>Make Premium</Table.HeadCell>
+            </Table.Head>
+            <Table.Body className="divide-y">
+              {pendingReq.map((req) => {
+                return (
+                  <Table.Row
+                    key={req._id}
+                    className="bg-white dark:border-gray-700 dark:bg-gray-800 font-semibold"
+                  >
+                    <Table.Cell className="whitespace-nowrap text-gray-900 font-semibold dark:text-white">
+                      {req.name}
+                    </Table.Cell>
+                    <Table.Cell>{req.contactEmail}</Table.Cell>
+                    <Table.Cell>{req.biodataId}</Table.Cell>
+                    <Table.Cell>
+                      {" "}
+                      <Button
+                        gradientDuoTone="purpleToBlue"
+                        onClick={() => handleMakePremium(req)}
+                      >
+                        <FaRegStar />
+                      </Button>
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              })}
+            </Table.Body>
+          </Table>
+        </div>
+      )}
     </div>
   );
 };
