@@ -7,14 +7,17 @@ import { HashLoader } from "react-spinners";
 import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import { useEffect, useState } from "react";
 import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
-import { motion } from "framer-motion";
+import { Button } from "flowbite-react";
+
 const Biodatas = () => {
   // react select Data
   const type = [
+    { value: "", label: "All" },
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
   ];
   const division = [
+    { value: "", label: "All" },
     { value: "Dhaka", label: "Dhaka" },
     { value: "Chattagram", label: "Chattagram" },
     { value: "Rangpur", label: "Rangpur" },
@@ -24,10 +27,15 @@ const Biodatas = () => {
     { value: "Sylhet", label: "Sylhet" },
   ];
 
+
+
   const [minAge, setMinAge] = useState(21);
   const [maxAge, setMaxAge] = useState(100);
   const [gender, setGender] = useState("");
   const [perDivision, setPerDivision] = useState("");
+  const [page, setPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const [count, setCount] = useState(0);
 
   const handleFilterData = (e) => {
     e.preventDefault();
@@ -58,18 +66,27 @@ const Biodatas = () => {
     refetch,
     data: biodata = [],
   } = useQuery({
-    queryKey: ["biodata"],
+    queryKey: ["biodata", page],
     queryFn: async () => {
       const res = await axiosPublic.get(
-        `/biodatas?minAge=${minAge}&maxAge=${maxAge}&gender=${gender}&division=${perDivision}`
+        `/biodatas?minAge=${minAge}&maxAge=${maxAge}&gender=${gender}&division=${perDivision}&page=${page}`
       );
-      return res.data;
+        setCount(res.data.count)
+      return res.data.result;
     },
   });
 
   useEffect(() => {
     refetch();
-  }, [refetch, maxAge, minAge, gender, perDivision]);
+    page;
+  }, [refetch, maxAge, minAge, gender, perDivision, page]);
+
+  useEffect(() => {
+    const totalData = count;
+    const per = 6;
+    const perPage = Math.ceil(totalData / per);
+    setTotalPage(perPage);
+  }, [count]);
 
   if (isPending) {
     return (
@@ -83,15 +100,24 @@ const Biodatas = () => {
   if (error) {
     console.log(error.message);
   }
+
+  const totalButtons = [];
+  for (let i = 0; i < totalPage; i++) {
+    totalButtons.push(
+      <Button
+        key={i}
+        outline={page !== i}
+        gradientDuoTone="tealToLime"
+        className="font-semibold"
+        onClick={() => setPage(i)}
+      >
+        {i + 1}
+      </Button>
+    );
+  }
+
   return (
-    <motion.div initial={{ scale: 0 }}
-    animate={{ rotate: 0, scale: 1 }}
-    transition={{
-      type: "spring",
-      stiffness: 200,
-      damping: 50,
-      duration: 2
-    }}>
+    <div>
       <Container>
         <HelmetElement text={"BioDatas"} />
         <div className="my-5">
@@ -160,9 +186,30 @@ const Biodatas = () => {
               </div>
             </div>
           </div>
+          <div className="flex justify-center items-center gap-5 my-10">
+            <Button
+              disabled={page === 0}
+              outline
+              gradientDuoTone="tealToLime"
+              className="font-semibold"
+              onClick={() => setPage(page - 1)}
+            >
+              Prev
+            </Button>
+            {totalButtons}
+            <Button
+              disabled={page === totalPage - 1 }
+              outline
+              gradientDuoTone="tealToLime"
+              className="font-semibold"
+              onClick={() => setPage(page + 1)}
+            >
+              Next
+            </Button>
+          </div>
         </div>
       </Container>
-    </motion.div>
+    </div>
   );
 };
 
