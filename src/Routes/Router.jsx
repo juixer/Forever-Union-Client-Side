@@ -19,11 +19,13 @@ import ContactRequest from "../Pages/userDashboard/ContactRequest/ContactRequest
 import ApproveContactReq from "../Pages/AdminDashBoard/Approve Contact Req/ApproveContactReq";
 import GotMarried from "../Pages/userDashboard/GotMarried/GotMarried";
 import SuccessStory from "../Pages/AdminDashBoard/SuccessStory/SuccessStory";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement:<ErrorPage/>,
     children: [
       { path: "/", element: <Home /> },
       {
