@@ -5,6 +5,7 @@ import Headline from "../../Shared/Headline/Headline";
 import Select from "react-select";
 import { HashLoader } from "react-spinners";
 import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
+import { useEffect, useState } from "react";
 
 const Biodatas = () => {
   // react select Data
@@ -21,20 +22,53 @@ const Biodatas = () => {
     { value: "Maymansign", label: "Maymansign" },
     { value: "Sylhet", label: "Sylhet" },
   ];
- 
+
+  const [minAge, setMinAge] = useState(21);
+  const [maxAge, setMaxAge] = useState(100);
+  const [gender, setGender] = useState("");
+  const [perDivision, setPerDivision] = useState("");
+
+  const handleFilterData = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const starAge = form.startAge.value;
+    const endAge = form.endAge.value;
+    const filter_gender = form.gender.value;
+    const filter_division = form.division.value;
+
+    setMinAge(starAge);
+    setMaxAge(endAge);
+    setGender(filter_gender);
+    setPerDivision(filter_division);
+  };
+
+  const handleReset = () => {
+    setMinAge(21);
+    setMaxAge(100);
+    setGender('');
+    setPerDivision('');
+  }
 
   // tan stack query
   const {
     isPending,
     error,
+    refetch,
     data: biodata = [],
   } = useQuery({
     queryKey: ["biodata"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/biodatas");
+      const res = await axiosPublic.get(
+        `/biodatas?minAge=${minAge}&maxAge=${maxAge}&gender=${gender}&division=${perDivision}`
+      );
       return res.data;
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, maxAge, minAge, gender, perDivision]);
 
   if (isPending) {
     return (
@@ -54,7 +88,7 @@ const Biodatas = () => {
         <Headline text={"BioDatas"} />
         <div className="flex flex-col lg:flex-row gap-10 mt-10">
           <div className="lg:w-1/4  px-3">
-            <form>
+            <form onSubmit={handleFilterData}>
               <div>
                 <h1 className="text-xl text-center font-bold">Filter By Age</h1>
                 <div className="flex gap-5 justify-center mt-2 items-center">
@@ -82,17 +116,18 @@ const Biodatas = () => {
                   Filter By Type
                 </h1>
                 <div className="mt-2">
-                  <Select options={type} />
+                  <Select options={type} name="gender" />
                 </div>
               </div>
               <div className="mt-2">
                 <h1 className="text-xl text-center font-bold">
-                  Filter By Division
+                  Filter By Permanent Division
                 </h1>
                 <div className="mt-2">
-                  <Select options={division} />
+                  <Select options={division} name="division" />
                 </div>
               </div>
+              <p onClick={handleReset} className="text-center mt-3 font-semibold hover:underline hover:cursor-pointer">Reset</p>
               <input
                 type="submit"
                 className="w-full bg-lime-300 font-bold text-xl py-2 rounded-lg mt-5"
