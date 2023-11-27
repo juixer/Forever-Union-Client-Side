@@ -20,6 +20,7 @@ import ApproveContactReq from "../Pages/AdminDashBoard/Approve Contact Req/Appro
 import GotMarried from "../Pages/userDashboard/GotMarried/GotMarried";
 import SuccessStory from "../Pages/AdminDashBoard/SuccessStory/SuccessStory";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 const Router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const Router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/biodata/${params.id}`),
       },
+      {
+        path: '/aboutUs',
+        element:<AboutUs/>
+      }
     ],
   },
   {

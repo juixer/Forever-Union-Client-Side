@@ -7,6 +7,7 @@ import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Payment from "./Payment";
+import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
@@ -25,6 +26,7 @@ const CHeckout = () => {
   const reqContact = useLoaderData();
   return (
     <Container>
+      <HelmetElement text={'CheckOut'}/>
       <div className="my-5 max-w-3xl mx-auto">
         <Headline text={"Checkout"} />
         <div className="mt-8">
