@@ -5,6 +5,7 @@ import { HashLoader } from "react-spinners";
 import { FaRegStar } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { axiosSecure } from "../../../Hooks/useAxiosSecure/useAxiosSecure";
+import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
 
 const ApprovePremium = () => {
   const { isPending, refetch, error, pendingReq } = usePendingPremium();
@@ -51,6 +52,7 @@ const ApprovePremium = () => {
 
   return (
     <div className="my-5 max-w-4xl mx-auto">
+      <HelmetElement text={'Premium Request'}/>
       <Headline text={"Premium Requests"} />
       {pendingReq === 0 ? (
         <h1 className="text-2xl text-center font-semibold mt-10">

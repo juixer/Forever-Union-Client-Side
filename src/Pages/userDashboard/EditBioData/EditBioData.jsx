@@ -6,6 +6,7 @@ import axios from "axios";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
 
 const EditBioData = () => {
   //   navigate
@@ -430,6 +431,7 @@ const EditBioData = () => {
 
   return (
     <div className="my-10">
+      <HelmetElement text={'Edit BioData'}/>
       <Headline text={"Edit Your BioData"} />
       <div className="max-w-4xl  mx-auto my-5 p-5 rounded-xl shadow-2xl">
         <form onSubmit={handleFormData} className="space-y-3">

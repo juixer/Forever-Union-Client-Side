@@ -6,6 +6,7 @@ import { HashLoader } from "react-spinners";
 import { FaRegStar, FaStar, FaUserCheck, FaUserPlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
 
 const ManageUser = () => {
   const [searchText, setSearchText] = useState("");
@@ -158,6 +159,7 @@ const ManageUser = () => {
 
   return (
     <div className="my-5 max-w-3xl mx-auto">
+      <HelmetElement text={'Manage Users'}/>
       <Headline text={"Manage Users"} />
       <form  className="my-5">
         <div className="flex justify-center items-center flex-col md:flex-row gap-5 mx-3">

@@ -6,6 +6,7 @@ import Select from "react-select";
 import { HashLoader } from "react-spinners";
 import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import { useEffect, useState } from "react";
+import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
 
 const Biodatas = () => {
   // react select Data
@@ -84,6 +85,7 @@ const Biodatas = () => {
   }
   return (
     <Container>
+      <HelmetElement text={'BioDatas'}/>
       <div className="my-5">
         <Headline text={"BioDatas"} />
         <div className="flex flex-col lg:flex-row gap-10 mt-10">

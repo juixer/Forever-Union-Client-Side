@@ -4,6 +4,7 @@ import axios from "axios";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
 
 const GotMarried = () => {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ const GotMarried = () => {
   };
   return (
     <div className="my-5 max-w-4xl mx-auto">
+      <HelmetElement text={'Got Married'}/>
       <Headline text={"Join the Married Club"} />
       <div className="my-10">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

@@ -5,6 +5,7 @@ import StatsCard from "../../Shared/StatsCard/StatsCard";
 import { axiosSecure } from "../../Hooks/useAxiosSecure/useAxiosSecure";
 import { HashLoader } from "react-spinners";
 import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
+import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
 const AdminDashBoard = () => {
   const { stats } = useStats();
   const {
@@ -69,6 +70,7 @@ const AdminDashBoard = () => {
 
   return (
     <div className="my-5 max-w-4xl mx-auto">
+      <HelmetElement text={'Dashboard'}/>
       <Headline text={"Admin DashBoard"} />
       <div className="my-10 flex flex-row flex-wrap gap-10 justify-center items-center">
         <StatsCard

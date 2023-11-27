@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
 import { HashLoader } from "react-spinners";
 import TableRow from "./TableRow";
+import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
 
 const SuccessStory = () => {
   const {
@@ -30,6 +31,7 @@ const SuccessStory = () => {
   }
   return (
     <div className="my-5 max-w-4xl mx-auto">
+      <HelmetElement text={'Success Story'}/>
       <Headline text={"Success Stories!"} />
       <div className="my-10">
         <div className="overflow-x-auto">

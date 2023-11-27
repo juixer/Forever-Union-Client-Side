@@ -6,6 +6,7 @@ import { Button } from "flowbite-react";
 import { FaCrown } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
 
 const VIewBioData = () => {
   const [myData, setMyData] = useState({});
@@ -71,6 +72,7 @@ const VIewBioData = () => {
 
   return (
     <div className="my-5 max-w-7xl mx-auto">
+      <HelmetElement text={'Your BioData'}/>
       <Headline text={"Your BioData Details"} />
       <div className="my-16">
         {myData?.contactEmail ? (

@@ -7,6 +7,7 @@ import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
 import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import { useForm } from "react-hook-form";
+import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
 
 const LogIn = () => {
   // auth Info
@@ -82,6 +83,7 @@ const LogIn = () => {
   };
   return (
     <Container>
+      <HelmetElement text={'Login'}/>
       <div className="my-5 max-w-2xl mx-auto">
         <Headline text={"Log In"} />
         <div className="flex flex-col mt-10">

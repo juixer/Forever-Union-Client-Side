@@ -4,6 +4,7 @@ import { axiosSecure } from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import { HashLoader } from "react-spinners";
 import { Button, Table } from "flowbite-react";
 import Swal from "sweetalert2";
+import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
 
 const ApproveContactReq = () => {
   const {
@@ -57,6 +58,7 @@ const ApproveContactReq = () => {
 
   return (
     <div className="my-5 max-w-4xl mx-auto">
+      <HelmetElement text={'Contact Request'}/>
       <Headline text={"Contact Access Requests"} />
       {pendingContactReq === 0 ? (
         <h1 className="text-2xl text-center font-semibold mt-10">

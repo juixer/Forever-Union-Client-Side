@@ -9,6 +9,7 @@ import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
 import { Link, useLoaderData } from "react-router-dom";
 import usePremium from "../../Hooks/usePremium/usePremium";
+import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
 
 const SingleBioData = () => {
   const { user } = useAuth();
@@ -93,6 +94,7 @@ const SingleBioData = () => {
   const filterMatchedData = matchedData.filter((data) => data._id !== _id);
   return (
     <Container>
+      <HelmetElement text={name}/>
       <div className="my-5 flex lg:flex-row flex-col gap-10">
         <div className="lg:w-[60%] p-5 shadow-2xl rounded-xl">
           <h1 className="text-center md:text-5xl text-2xl font-bold my-10">

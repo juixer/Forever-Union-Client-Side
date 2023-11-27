@@ -5,6 +5,7 @@ import { HashLoader } from "react-spinners";
 import { Button, Table } from "flowbite-react";
 import Swal from "sweetalert2";
 import { axiosSecure } from "../../../Hooks/useAxiosSecure/useAxiosSecure";
+import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
 
 const FavBioData = () => {
   const { user } = useAuth();
@@ -58,6 +59,7 @@ const FavBioData = () => {
   };
   return (
     <div className="my-5 max-w-3xl mx-auto">
+      <HelmetElement text={'Favorites BioData'}/>
       <Headline text={"Your Favorites BioData"} />
       {FavBio.length === 0 ? (
         <>

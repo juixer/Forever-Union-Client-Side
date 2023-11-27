@@ -6,6 +6,7 @@ import useAuth from "../../Hooks/useAuth/useAuth";
 import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import axios from "axios";
 import Swal from "sweetalert2";
+import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ const Register = () => {
 
   return (
     <Container>
+      <HelmetElement text={'Register'}/>
       <div className="my-5 max-w-2xl mx-auto">
         <Headline text={"Register Now"} />
         <div className="flex flex-col mt-10">
