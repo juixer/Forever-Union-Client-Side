@@ -5,8 +5,18 @@ import { axiosSecure } from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import { HashLoader } from "react-spinners";
 import { FaRegStar, FaStar, FaUserCheck, FaUserPlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 
 const ManageUser = () => {
+  const [searchText, setSearchText] = useState("");
+
+  // Handle user name search
+  const handleSearchData = (e) => {
+    e.preventDefault();
+    const search = e.target.value;
+    setSearchText(search);
+  };
+
   const {
     isPending,
     error,
@@ -15,10 +25,14 @@ const ManageUser = () => {
   } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get(`/users?search=${searchText}`);
       return res.data;
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [searchText, refetch]);
 
   if (isPending) {
     return (
@@ -145,6 +159,22 @@ const ManageUser = () => {
   return (
     <div className="my-5 max-w-3xl mx-auto">
       <Headline text={"Manage Users"} />
+      <form  className="my-5">
+        <div className="flex justify-center items-center flex-col md:flex-row gap-5 mx-3">
+          <input
+            name="username"
+            onChange={handleSearchData}
+            type="text"
+            className="md:w-3/4 w-full rounded-lg"
+            placeholder="Search by User Name"
+          />
+          <input
+            type="submit"
+            value="Search"
+            className="cursor-pointer font-bold text-xl  py-2 rounded-lg bg-gradient-to-r from-lime-300 to-emerald-400 md:w-1/4 w-3/4 "
+          />
+        </div>
+      </form>
       <div className="overflow-x-auto my-10 shadow-xl">
         <Table hoverable>
           <Table.Head>
