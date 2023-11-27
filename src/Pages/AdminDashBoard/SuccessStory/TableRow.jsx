@@ -28,6 +28,7 @@ const TableRow = ({ story }) => {
           onClose={() => {
             setOpenModal(false);
           }}
+          data-aos="fade-left"
         >
           <Modal.Header>Success Story!</Modal.Header>
           <Modal.Body>

@@ -5,6 +5,7 @@ import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const GotMarried = () => {
   const navigate = useNavigate();
@@ -47,7 +48,14 @@ const GotMarried = () => {
     }
   };
   return (
-    <div className="my-5 max-w-4xl mx-auto">
+    <motion.div className="my-5 max-w-4xl mx-auto"   initial={{ scale: 0 }}
+    animate={{ rotate: 0, scale: 1 }}
+    transition={{
+      type: "spring",
+      stiffness: 200,
+      damping: 50,
+      duration: 2
+    }}>
       <HelmetElement text={'Got Married'}/>
       <Headline text={"Join the Married Club"} />
       <div className="my-10">
@@ -218,7 +226,7 @@ const GotMarried = () => {
           />
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

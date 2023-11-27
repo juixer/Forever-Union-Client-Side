@@ -6,6 +6,7 @@ import { FaRegStar } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { axiosSecure } from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const ApprovePremium = () => {
   const { isPending, refetch, error, pendingReq } = usePendingPremium();
@@ -51,8 +52,18 @@ const ApprovePremium = () => {
   };
 
   return (
-    <div className="my-5 max-w-4xl mx-auto">
-      <HelmetElement text={'Premium Request'}/>
+    <motion.div
+      className="my-5 max-w-4xl mx-auto"
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <HelmetElement text={"Premium Request"} />
       <Headline text={"Premium Requests"} />
       {pendingReq === 0 ? (
         <h1 className="text-2xl text-center font-semibold mt-10">
@@ -95,7 +106,7 @@ const ApprovePremium = () => {
           </Table>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

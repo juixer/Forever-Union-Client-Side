@@ -21,6 +21,7 @@ import GotMarried from "../Pages/userDashboard/GotMarried/GotMarried";
 import SuccessStory from "../Pages/AdminDashBoard/SuccessStory/SuccessStory";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import AboutUs from "../Pages/AboutUs/AboutUs";
+import ContactUs from "../Pages/ContactUs/ContactUs";
 
 const Router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const Router = createBrowserRouter([
       {
         path: '/aboutUs',
         element:<AboutUs/>
+      },
+      {
+        path:'/contactUs',
+        element: <ContactUs/>
       }
     ],
   },

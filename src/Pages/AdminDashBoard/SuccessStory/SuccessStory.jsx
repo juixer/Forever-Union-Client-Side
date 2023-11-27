@@ -5,6 +5,7 @@ import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
 import { HashLoader } from "react-spinners";
 import TableRow from "./TableRow";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const SuccessStory = () => {
   const {
@@ -30,8 +31,18 @@ const SuccessStory = () => {
     return console.log(error.message);
   }
   return (
-    <div className="my-5 max-w-4xl mx-auto">
-      <HelmetElement text={'Success Story'}/>
+    <motion.div
+      className="my-5 max-w-4xl mx-auto"
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <HelmetElement text={"Success Story"} />
       <Headline text={"Success Stories!"} />
       <div className="my-10">
         <div className="overflow-x-auto">
@@ -49,7 +60,7 @@ const SuccessStory = () => {
           </Table>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

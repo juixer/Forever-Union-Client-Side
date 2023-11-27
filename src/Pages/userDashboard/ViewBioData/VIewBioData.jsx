@@ -7,6 +7,7 @@ import { FaCrown } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const VIewBioData = () => {
   const [myData, setMyData] = useState({});
@@ -71,8 +72,18 @@ const VIewBioData = () => {
   };
 
   return (
-    <div className="my-5 max-w-7xl mx-auto">
-      <HelmetElement text={'Your BioData'}/>
+    <motion.div
+      className="my-5 max-w-7xl mx-auto"
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <HelmetElement text={"Your BioData"} />
       <Headline text={"Your BioData Details"} />
       <div className="my-16">
         {myData?.contactEmail ? (
@@ -167,13 +178,15 @@ const VIewBioData = () => {
               You have not created a BioData yet. To showcase your profile and
               make connections, click the Create BioData button below.
             </h1>
-            <Link to={'/dashboard/editBioData'}>
-              <Button gradientMonochrome="lime" className="font-bold">Create BioData</Button>
+            <Link to={"/dashboard/editBioData"}>
+              <Button gradientMonochrome="lime" className="font-bold">
+                Create BioData
+              </Button>
             </Link>
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -5,6 +5,7 @@ import { HashLoader } from "react-spinners";
 import { Button, Table } from "flowbite-react";
 import Swal from "sweetalert2";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const ApproveContactReq = () => {
   const {
@@ -44,7 +45,7 @@ const ApproveContactReq = () => {
       if (result.isConfirmed) {
         axiosSecure.patch(`/approveContactRequest/${id}`).then((res) => {
           if (res.data.modifiedCount > 0) {
-            refetch()
+            refetch();
             Swal.fire({
               title: "Access Given!",
               text: "User get access of the contact information.",
@@ -57,8 +58,18 @@ const ApproveContactReq = () => {
   };
 
   return (
-    <div className="my-5 max-w-4xl mx-auto">
-      <HelmetElement text={'Contact Request'}/>
+    <motion.div
+      className="my-5 max-w-4xl mx-auto"
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <HelmetElement text={"Contact Request"} />
       <Headline text={"Contact Access Requests"} />
       {pendingContactReq === 0 ? (
         <h1 className="text-2xl text-center font-semibold mt-10">
@@ -101,7 +112,7 @@ const ApproveContactReq = () => {
           </Table>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

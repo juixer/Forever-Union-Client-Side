@@ -7,7 +7,7 @@ import { HashLoader } from "react-spinners";
 import { axiosPublic } from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import { useEffect, useState } from "react";
 import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
-
+import { motion } from "framer-motion";
 const Biodatas = () => {
   // react select Data
   const type = [
@@ -47,9 +47,9 @@ const Biodatas = () => {
   const handleReset = () => {
     setMinAge(21);
     setMaxAge(100);
-    setGender('');
-    setPerDivision('');
-  }
+    setGender("");
+    setPerDivision("");
+  };
 
   // tan stack query
   const {
@@ -84,69 +84,85 @@ const Biodatas = () => {
     console.log(error.message);
   }
   return (
-    <Container>
-      <HelmetElement text={'BioDatas'}/>
-      <div className="my-5">
-        <Headline text={"BioDatas"} />
-        <div className="flex flex-col lg:flex-row gap-10 mt-10">
-          <div className="lg:w-1/4  px-3">
-            <form onSubmit={handleFilterData}>
-              <div>
-                <h1 className="text-xl text-center font-bold">Filter By Age</h1>
-                <div className="flex gap-5 justify-center mt-2 items-center">
-                  <input
-                    type="number"
-                    name="startAge"
-                    min={21}
-                    max={100}
-                    defaultValue={21}
-                    className="w-20 rounded-lg"
-                  />
-                  <span className="font-bold">To</span>
-                  <input
-                    type="number"
-                    name="endAge"
-                    min={21}
-                    max={100}
-                    defaultValue={100}
-                    className="w-20 rounded-lg"
-                  />
+    <motion.div initial={{ scale: 0 }}
+    animate={{ rotate: 0, scale: 1 }}
+    transition={{
+      type: "spring",
+      stiffness: 200,
+      damping: 50,
+      duration: 2
+    }}>
+      <Container>
+        <HelmetElement text={"BioDatas"} />
+        <div className="my-5">
+          <Headline text={"BioDatas"} />
+          <div className="flex flex-col lg:flex-row gap-10 mt-10">
+            <div className="lg:w-1/4  px-3">
+              <form onSubmit={handleFilterData}>
+                <div>
+                  <h1 className="text-xl text-center font-bold">
+                    Filter By Age
+                  </h1>
+                  <div className="flex gap-5 justify-center mt-2 items-center">
+                    <input
+                      type="number"
+                      name="startAge"
+                      min={21}
+                      max={100}
+                      defaultValue={21}
+                      className="w-20 rounded-lg"
+                    />
+                    <span className="font-bold">To</span>
+                    <input
+                      type="number"
+                      name="endAge"
+                      min={21}
+                      max={100}
+                      defaultValue={100}
+                      className="w-20 rounded-lg"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="mt-2">
-                <h1 className="text-xl text-center font-bold">
-                  Filter By Type
-                </h1>
                 <div className="mt-2">
-                  <Select options={type} name="gender" />
+                  <h1 className="text-xl text-center font-bold">
+                    Filter By Type
+                  </h1>
+                  <div className="mt-2">
+                    <Select options={type} name="gender" />
+                  </div>
                 </div>
-              </div>
-              <div className="mt-2">
-                <h1 className="text-xl text-center font-bold">
-                  Filter By Permanent Division
-                </h1>
                 <div className="mt-2">
-                  <Select options={division} name="division" />
+                  <h1 className="text-xl text-center font-bold">
+                    Filter By Permanent Division
+                  </h1>
+                  <div className="mt-2">
+                    <Select options={division} name="division" />
+                  </div>
                 </div>
+                <p
+                  onClick={handleReset}
+                  className="text-center mt-3 font-semibold hover:underline hover:cursor-pointer"
+                >
+                  Reset
+                </p>
+                <input
+                  type="submit"
+                  className="w-full bg-lime-300 font-bold text-xl py-2 rounded-lg mt-5"
+                />
+              </form>
+            </div>
+            <div className="lg:w-3/4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10 ">
+                {/* Cards */}
+                {biodata.map((data) => (
+                  <BioDataCard key={data._id} data={data} />
+                ))}
               </div>
-              <p onClick={handleReset} className="text-center mt-3 font-semibold hover:underline hover:cursor-pointer">Reset</p>
-              <input
-                type="submit"
-                className="w-full bg-lime-300 font-bold text-xl py-2 rounded-lg mt-5"
-              />
-            </form>
-          </div>
-          <div className="lg:w-3/4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10 ">
-              {/* Cards */}
-              {biodata.map((data) => (
-                <BioDataCard key={data._id} data={data} />
-              ))}
             </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </motion.div>
   );
 };
 

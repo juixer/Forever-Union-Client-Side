@@ -7,6 +7,7 @@ import { axiosPublic } from "../../../Hooks/useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const EditBioData = () => {
   //   navigate
@@ -424,14 +425,24 @@ const EditBioData = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate('/dashboard/viewBioData');
+        navigate("/dashboard/viewBioData");
       });
     }
   };
 
   return (
-    <div className="my-10">
-      <HelmetElement text={'Edit BioData'}/>
+    <motion.div
+      className="my-10"
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <HelmetElement text={"Edit BioData"} />
       <Headline text={"Edit Your BioData"} />
       <div className="max-w-4xl  mx-auto my-5 p-5 rounded-xl shadow-2xl">
         <form onSubmit={handleFormData} className="space-y-3">
@@ -566,7 +577,9 @@ const EditBioData = () => {
               {myData && (
                 <h1 className="text-lg">
                   Selected:{" "}
-                  <span className="font-semibold">{myData?.height}	&quot; </span>
+                  <span className="font-semibold">
+                    {myData?.height} &quot;{" "}
+                  </span>
                 </h1>
               )}
             </div>
@@ -656,7 +669,7 @@ const EditBioData = () => {
                 <h1 className="text-lg">
                   Selected:{" "}
                   <span className="font-semibold">
-                    {myData?.expectedPartnerHeight}	&quot;
+                    {myData?.expectedPartnerHeight} &quot;
                   </span>
                 </h1>
               )}
@@ -722,7 +735,7 @@ const EditBioData = () => {
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

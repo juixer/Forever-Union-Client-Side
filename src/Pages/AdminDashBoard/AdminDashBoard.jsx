@@ -6,6 +6,8 @@ import { axiosSecure } from "../../Hooks/useAxiosSecure/useAxiosSecure";
 import { HashLoader } from "react-spinners";
 import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
+
 const AdminDashBoard = () => {
   const { stats } = useStats();
   const {
@@ -69,8 +71,18 @@ const AdminDashBoard = () => {
   };
 
   return (
-    <div className="my-5 max-w-4xl mx-auto">
-      <HelmetElement text={'Dashboard'}/>
+    <motion.div
+      className="my-5 max-w-4xl mx-auto"
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <HelmetElement text={"Dashboard"} />
       <Headline text={"Admin DashBoard"} />
       <div className="my-10 flex flex-row flex-wrap gap-10 justify-center items-center">
         <StatsCard
@@ -101,7 +113,7 @@ const AdminDashBoard = () => {
         />
       </div>
       <div className="flex items-center justify-center overflow-x-scroll md:overflow-x-auto">
-      <PieChart width={400} height={400} >
+        <PieChart width={400} height={400}>
           <Pie
             data={pieData}
             cx="50%"
@@ -113,14 +125,17 @@ const AdminDashBoard = () => {
             dataKey="value"
           >
             {pieData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
             ))}
           </Pie>
           <Legend></Legend>
           <Tooltip></Tooltip>
         </PieChart>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

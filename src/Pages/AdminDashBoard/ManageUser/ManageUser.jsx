@@ -7,6 +7,7 @@ import { FaRegStar, FaStar, FaUserCheck, FaUserPlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const ManageUser = () => {
   const [searchText, setSearchText] = useState("");
@@ -158,10 +159,20 @@ const ManageUser = () => {
   };
 
   return (
-    <div className="my-5 max-w-3xl mx-auto">
-      <HelmetElement text={'Manage Users'}/>
+    <motion.div
+      className="my-5 max-w-3xl mx-auto"
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <HelmetElement text={"Manage Users"} />
       <Headline text={"Manage Users"} />
-      <form  className="my-5">
+      <form className="my-5">
         <div className="flex justify-center items-center flex-col md:flex-row gap-5 mx-3">
           <input
             name="username"
@@ -270,7 +281,7 @@ const ManageUser = () => {
           </Table.Body>
         </Table>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

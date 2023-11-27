@@ -13,7 +13,7 @@ const BioDataCard = ({ data }) => {
     profileImage,
   } = data;
   return (
-    <div className=" shadow-xl hover:shadow-lime-200 duration-300 p-2 space-y-2 border rounded-xl ">
+    <div data-aos="fade-left" className=" shadow-xl hover:shadow-lime-200 duration-300 p-2 space-y-2 border rounded-xl ">
       <div className="flex justify-evenly lg:justify-center items-center lg:gap-10 gap-5 space-y-2 rounded-xl flex-col md:flex-row">
         <img src={profileImage} className="full_round w-56" />
         <div className="space-y-2 flex">

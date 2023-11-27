@@ -6,6 +6,7 @@ import { axiosSecure } from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const ContactRequest = () => {
   const { user } = useAuth();
@@ -59,7 +60,14 @@ const ContactRequest = () => {
   }
 
   return (
-    <div className="my-5 max-w-4xl mx-auto">
+    <motion.div className="my-5 max-w-4xl mx-auto"   initial={{ scale: 0 }}
+    animate={{ rotate: 0, scale: 1 }}
+    transition={{
+      type: "spring",
+      stiffness: 200,
+      damping: 50,
+      duration: 2
+    }}>
       <HelmetElement text={'Contact Request'}/>
       <Headline text={"Your Contact Requests"} />
       {myRequest.length === 0 ? (
@@ -119,7 +127,7 @@ const ContactRequest = () => {
           </Table>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

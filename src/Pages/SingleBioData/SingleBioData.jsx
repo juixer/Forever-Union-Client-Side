@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { Link, useLoaderData } from "react-router-dom";
 import usePremium from "../../Hooks/usePremium/usePremium";
 import HelmetElement from "../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const SingleBioData = () => {
   const { user } = useAuth();
@@ -93,139 +94,150 @@ const SingleBioData = () => {
   // filter
   const filterMatchedData = matchedData.filter((data) => data._id !== _id);
   return (
-    <Container>
-      <HelmetElement text={name}/>
-      <div className="my-5 flex lg:flex-row flex-col gap-10">
-        <div className="lg:w-[60%] p-5 shadow-2xl rounded-xl">
-          <h1 className="text-center md:text-5xl text-2xl font-bold my-10">
-            BioData ID-{biodataId} Details
-          </h1>
-          <div className="flex flex-col gap-5">
-            {/* box */}
-            <div className="flex justify-center items-center gap-16 md:flex-row flex-col">
-              <img src={profileImage} className="full_round w-80" />
-              <div className="flex flex-col gap-3">
-                <h1 className="md:text-5xl text-3xl font-light">{name}</h1>
+    <motion.div
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <Container>
+        <HelmetElement text={name} />
+        <div className="my-5 flex lg:flex-row flex-col gap-10">
+          <div className="lg:w-[60%] p-5 shadow-2xl rounded-xl">
+            <h1 className="text-center md:text-5xl text-2xl font-bold my-10">
+              BioData ID-{biodataId} Details
+            </h1>
+            <div className="flex flex-col gap-5">
+              {/* box */}
+              <div className="flex justify-center items-center gap-16 md:flex-row flex-col">
+                <img src={profileImage} className="full_round w-80" />
+                <div className="flex flex-col gap-3">
+                  <h1 className="md:text-5xl text-3xl font-light">{name}</h1>
 
+                  <h1 className="md:text-3xl text-xl font-light">
+                    Gender: {gender}
+                  </h1>
+
+                  <h1 className="md:text-3xl text-xl font-light">
+                    Date of Birth: {dateOfBirth}
+                  </h1>
+
+                  <h1 className="md:text-3xl text-xl font-light">
+                    Age: {age} Y/O
+                  </h1>
+
+                  <h1 className="md:text-3xl text-xl font-light">
+                    Race: {race}{" "}
+                  </h1>
+
+                  <h1 className="md:text-3xl text-xl font-light">
+                    Occupation: {occupation}
+                  </h1>
+                </div>
+              </div>
+              {/* BOX */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 ">
                 <h1 className="md:text-3xl text-xl font-light">
-                  Gender: {gender}
+                  Father Name: {fathersName}
                 </h1>
 
                 <h1 className="md:text-3xl text-xl font-light">
-                  Date of Birth: {dateOfBirth}
+                  Mother Name: {mothersName}
                 </h1>
 
                 <h1 className="md:text-3xl text-xl font-light">
-                  Age: {age} Y/O
+                  Height: {height}&quot;
                 </h1>
 
                 <h1 className="md:text-3xl text-xl font-light">
-                  Race: {race}{" "}
+                  Weight: {weight}kg
                 </h1>
 
                 <h1 className="md:text-3xl text-xl font-light">
-                  Occupation: {occupation}
+                  Permanent Division: {permanentDivision}
+                </h1>
+
+                <h1 className="md:text-3xl text-xl font-light">
+                  Present Division: {presentDivision}
+                </h1>
+
+                <h1 className="md:text-3xl text-xl font-light">
+                  Expected Partner Age: {expectedPartnerAge} Y/O
+                </h1>
+
+                <h1 className="md:text-3xl text-xl font-light">
+                  Expected Partner Height: {expectedPartnerHeight}&quot;
+                </h1>
+
+                <h1 className="md:text-3xl text-xl font-light md:col-span-2">
+                  Expected Partner Weight: {expectedPartnerWeight}kg
                 </h1>
               </div>
+              {/* box */}
+              <div>
+                <Button
+                  onClick={handleAddToFavorite}
+                  gradientMonochrome="lime"
+                  className="hover:animate-pulse font-bold w-full "
+                >
+                  <FaHeart className="mr-2" /> Add To Favorite
+                </Button>
+              </div>
+              <div>
+                <h1 className="text-center md:text-5xl text-2xl font-bold my-5">
+                  Contact Information
+                </h1>
+                {isPremium?.status === "premium" ? (
+                  <div className="flex flex-col justify-center items-center gap-5 mt-5">
+                    <h1 className="md:text-3xl text-xl font-light">
+                      Email:{" "}
+                      <span className="underline text-2xl">{contactEmail}</span>
+                    </h1>
+                    <h1 className="md:text-3xl text-xl font-light">
+                      Phone:
+                      <span className="text-2xl"> {mobileNumber}</span>
+                    </h1>
+                  </div>
+                ) : (
+                  <div className="flex flex-col justify-center items-center gap-3">
+                    <img
+                      src="https://i.ibb.co/cY64wtN/contactlocked.png"
+                      className="w-44"
+                    />
+                    <h1 className="font-semibold text-xl">
+                      BioData Contact Information Locked Pay 500TK to Get Access
+                      of the Contact
+                    </h1>
+                    <Link to={`/checkout/${_id}`}>
+                      <Button
+                        gradientMonochrome="lime"
+                        className="animate-pulse font-bold w-full "
+                      >
+                        <FaLock className="mr-2" /> Request Contact Information
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
-            {/* BOX */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 ">
-              <h1 className="md:text-3xl text-xl font-light">
-                Father Name: {fathersName}
+          </div>
+          <div className="lg:w-[40%]">
+            <div className="flex flex-col gap-y-10">
+              <h1 className="text-center md:text-5xl text-2xl font-bold">
+                Recommendation
               </h1>
-
-              <h1 className="md:text-3xl text-xl font-light">
-                Mother Name: {mothersName}
-              </h1>
-
-              <h1 className="md:text-3xl text-xl font-light">
-                Height: {height}&quot;
-              </h1>
-
-              <h1 className="md:text-3xl text-xl font-light">
-                Weight: {weight}kg
-              </h1>
-
-              <h1 className="md:text-3xl text-xl font-light">
-                Permanent Division: {permanentDivision}
-              </h1>
-
-              <h1 className="md:text-3xl text-xl font-light">
-                Present Division: {presentDivision}
-              </h1>
-
-              <h1 className="md:text-3xl text-xl font-light">
-                Expected Partner Age: {expectedPartnerAge} Y/O
-              </h1>
-
-              <h1 className="md:text-3xl text-xl font-light">
-                Expected Partner Height: {expectedPartnerHeight}&quot;
-              </h1>
-
-              <h1 className="md:text-3xl text-xl font-light md:col-span-2">
-                Expected Partner Weight: {expectedPartnerWeight}kg
-              </h1>
-            </div>
-            {/* box */}
-            <div>
-              <Button
-                onClick={handleAddToFavorite}
-                gradientMonochrome="lime"
-                className="hover:animate-pulse font-bold w-full "
-              >
-                <FaHeart className="mr-2" /> Add To Favorite
-              </Button>
-            </div>
-            <div>
-              <h1 className="text-center md:text-5xl text-2xl font-bold my-5">
-                Contact Information
-              </h1>
-              {isPremium?.status === "premium" ? (
-                <div className="flex flex-col justify-center items-center gap-5 mt-5">
-                  <h1 className="md:text-3xl text-xl font-light">
-                    Email:{" "}
-                    <span className="underline text-2xl">{contactEmail}</span>
-                  </h1>
-                  <h1 className="md:text-3xl text-xl font-light">
-                    Phone:
-                    <span className="text-2xl"> {mobileNumber}</span>
-                  </h1>
-                </div>
-              ) : (
-                <div className="flex flex-col justify-center items-center gap-3">
-                  <img
-                    src="https://i.ibb.co/cY64wtN/contactlocked.png"
-                    className="w-44"
-                  />
-                  <h1 className="font-semibold text-xl">
-                    BioData Contact Information Locked Pay 500TK to Get Access
-                    of the Contact
-                  </h1>
-                  <Link to={`/checkout/${_id}`}>
-                    <Button
-                      gradientMonochrome="lime"
-                      className="animate-pulse font-bold w-full "
-                    >
-                      <FaLock className="mr-2" /> Request Contact Information
-                    </Button>
-                  </Link>
-                </div>
-              )}
+              {filterMatchedData.map((data) => (
+                <BioDataCard key={data._id} data={data} />
+              ))}
             </div>
           </div>
         </div>
-        <div className="lg:w-[40%]">
-          <div className="flex flex-col gap-y-10">
-            <h1 className="text-center md:text-5xl text-2xl font-bold">
-              Recommendation
-            </h1>
-            {filterMatchedData.map((data) => (
-              <BioDataCard key={data._id} data={data} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </motion.div>
   );
 };
 

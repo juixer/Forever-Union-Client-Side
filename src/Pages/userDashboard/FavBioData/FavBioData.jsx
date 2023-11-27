@@ -6,6 +6,7 @@ import { Button, Table } from "flowbite-react";
 import Swal from "sweetalert2";
 import { axiosSecure } from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import HelmetElement from "../../../Shared/HelmetElement/HelmetElement";
+import { motion } from "framer-motion";
 
 const FavBioData = () => {
   const { user } = useAuth();
@@ -58,13 +59,24 @@ const FavBioData = () => {
     });
   };
   return (
-    <div className="my-5 max-w-3xl mx-auto">
-      <HelmetElement text={'Favorites BioData'}/>
+    <motion.div
+      className="my-5 max-w-3xl mx-auto"
+      initial={{ scale: 0 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 50,
+        duration: 2,
+      }}
+    >
+      <HelmetElement text={"Favorites BioData"} />
       <Headline text={"Your Favorites BioData"} />
       {FavBio.length === 0 ? (
         <>
           <h1 className="text-2xl text-center font-semibold mt-10">
-          Your favorites list is empty! <br/> Start adding your favorite BioData.
+            Your favorites list is empty! <br /> Start adding your favorite
+            BioData.
           </h1>
         </>
       ) : (
@@ -106,7 +118,7 @@ const FavBioData = () => {
           </Table>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
