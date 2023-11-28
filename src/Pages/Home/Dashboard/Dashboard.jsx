@@ -1,4 +1,6 @@
 import { Sidebar } from "flowbite-react";
+import { HashLoader } from "react-spinners";
+
 import {
   FaChartSimple,
   FaClipboardCheck,
@@ -12,7 +14,7 @@ import {
   FaStar,
   FaUserGroup,
 } from "react-icons/fa6";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate, useNavigation } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
 import useAdmin from "../../../Hooks/useAdmin/useAdmin";
@@ -22,6 +24,7 @@ const Dashboard = () => {
   const { userLogOut } = useAuth();
   //   navigate
   const navigate = useNavigate();
+  const navigation = useNavigation();
   // fake admin
   const { isAdmin } = useAdmin();
 
@@ -137,7 +140,7 @@ const Dashboard = () => {
                     <Sidebar.Item>
                       <h1 className="flex items-center justify-start gap-3 text-xl font-semibold">
                         <FaPeopleRobbery />
-                       Got Married
+                        Got Married
                       </h1>
                     </Sidebar.Item>
                   </NavLink>
@@ -166,7 +169,13 @@ const Dashboard = () => {
       </div>
       <div className="lg:w-[85%] w-full min-h-screen">
         <div className="m-5">
-          <Outlet />
+          {navigation.state === "loading" ? (
+            <div className="flex justify-center items-center py-44">
+              <HashLoader color="#7ad737" />
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </div>
       </div>
     </div>

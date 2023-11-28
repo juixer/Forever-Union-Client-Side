@@ -13,11 +13,10 @@ const BioDataCard = ({ data }) => {
     profileImage,
   } = data;
   return (
-    <div className=" shadow-xl hover:shadow-lime-200 duration-300 p-2 space-y-2 border rounded-xl ">
-      <div className="flex justify-evenly lg:justify-center items-center lg:gap-10 gap-5 space-y-2 rounded-xl flex-col md:flex-row">
+    <div className=" flex flex-col shadow-xl hover:shadow-lime-200 duration-300 p-2 space-y-2 border rounded-xl ">
+      <div className="flex flex-grow  justify-evenly lg:justify-center items-center lg:gap-10 gap-5 space-y-2 rounded-xl flex-col md:flex-row">
         <img src={profileImage} className="full_round w-56" />
-        <div className="space-y-2 flex">
-          <div className="flex-grow">
+        <div className="space-y-2">
             <h3 className="font-semibold text-lg">
               BioData Id: <span className="font-medium">{biodataId}</span>
             </h3>
@@ -42,7 +41,6 @@ const BioDataCard = ({ data }) => {
               Permanent Division:{" "}
               <span className="font-medium"> {permanentDivision}</span>
             </h3>
-          </div>
         </div>
       </div>
       <div>

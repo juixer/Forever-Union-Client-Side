@@ -27,7 +27,7 @@ const Router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement:<ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
       {
@@ -50,7 +50,7 @@ const Router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/biodata/${params.id}`),
+          fetch(`https://forever-union-server.vercel.app/biodata/${params.id}`),
       },
       {
         path: "/checkout/:id",
@@ -60,16 +60,16 @@ const Router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/biodata/${params.id}`),
+          fetch(`https://forever-union-server.vercel.app/biodata/${params.id}`),
       },
       {
-        path: '/aboutUs',
-        element:<AboutUs/>
+        path: "/aboutUs",
+        element: <AboutUs />,
       },
       {
-        path:'/contactUs',
-        element: <ContactUs/>
-      }
+        path: "/contactUs",
+        element: <ContactUs />,
+      },
     ],
   },
   {
@@ -79,7 +79,7 @@ const Router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
-    errorElement: <ErrorPage/> ,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/dashboard/",

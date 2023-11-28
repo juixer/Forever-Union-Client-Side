@@ -4,7 +4,7 @@ import useAuth from "../useAuth/useAuth";
 import { useEffect } from "react";
 
 export const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://forever-union-server.vercel.app",
   withCredentials: true,
 });
 const useAxiosSecure = () => {
@@ -19,15 +19,14 @@ const useAxiosSecure = () => {
         const status = error.response.status;
         console.log(status);
         if (status === 401 || status === 403) {
-            userLogOut()
-            .then(()=>{
-                navigate('/login')
-            })
+          userLogOut().then(() => {
+            navigate("/login");
+          });
         }
       }
     );
   }, [navigate, userLogOut]);
-  return axiosSecure
+  return axiosSecure;
 };
 
 export default useAxiosSecure;

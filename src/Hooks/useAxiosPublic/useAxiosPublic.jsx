@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export const axiosPublic = axios.create({
-    baseURL: 'http://localhost:5000',
-    withCredentials: true,
-})
+  baseURL: "https://forever-union-server.vercel.app",
+  withCredentials: true,
+});
 const useAxiosPublic = () => {
-    return axiosPublic
+  return axiosPublic;
 };
 
 export default useAxiosPublic;
