@@ -39,7 +39,7 @@ const Biodatas = () => {
 
   const handleFilterData = (e) => {
     e.preventDefault();
-
+    setPage(0)
     const form = e.target;
     const starAge = form.startAge.value;
     const endAge = form.endAge.value;

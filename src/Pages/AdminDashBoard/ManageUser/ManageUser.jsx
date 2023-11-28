@@ -181,11 +181,7 @@ const ManageUser = () => {
             className="md:w-3/4 w-full rounded-lg"
             placeholder="Search by User Name"
           />
-          <input
-            type="submit"
-            value="Search"
-            className="cursor-pointer font-bold text-xl  py-2 rounded-lg bg-gradient-to-r from-lime-300 to-emerald-400 md:w-1/4 w-3/4 "
-          />
+        
         </div>
       </form>
       <div className="overflow-x-auto my-10 shadow-xl">
